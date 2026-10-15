@@ -18,13 +18,13 @@ Full syllabus: [`../syllabus/SYLLABUS.md`](../syllabus/SYLLABUS.md)
 | II | Experimental Designs (CRD, RBD, LSD, Factorial) | Yes | CO2 | Kothari & Garg |
 | III | Method of Data Collection (Primary & Secondary) | Yes | CO3 | Kothari & Garg |
 | III | Sampling Design (fundamentals, measurement & scaling, criteria, characteristics, types) | Yes | CO3 | Kothari & Garg |
-| III | **Data Analysis** (hypothesis testing, Chi-square, ANOVA, ANOCOVA) | **Boundary, to confirm** | CO3 | Kothari & Garg |
+| III | **Data Analysis** (hypothesis testing, Chi-square, ANOVA, ANOCOVA) | **No** (slides 55–80) | CO3 | Kothari & Garg |
 | IV | IPR, TRIPS, PCT, Patents | No (CIE-2) | CO4 | Wadehra |
 | V | Designs, Trademarks, Copyrights | No (CIE-2) | CO5 | Wadehra |
 
-### Boundary note: "Unit III till Data Analysis"
-Read literally, the CIE-1 portion **stops at Data Analysis**. Data Collection and Sampling Design are in, and the Data Analysis block (Null/Alternative hypothesis, Type I/II errors, Level of Significance, tests for mean/variance/proportion, Chi-square, ANOVA, ANOCOVA) is out.
-**Slide 54 is the real cut-off.** If slide 54 ends partway into Data Analysis (for example, after H₀/H₁ and Type I/II errors), those slides are in scope too. This gets locked down once the slide deck is in the repo.
+### Boundary note: "Unit III till Data Analysis" (confirmed)
+Confirmed against the Unit III deck: **slide 54 is "Scaling Technique – Rating scale"**, the last slide before the "Data Analysis" divider on slide 55. So the CIE-1 portion is Unit III slides 1–54: Data Collection, Sampling Design, and Measurement & Scaling (up to the rating scale). Slides 55–80 (testing of hypotheses, Type I/II errors, level of significance, z/t tests, Chi-square, ANOVA, ANOCOVA) are **out**.
+Exception: null vs alternative and directional vs non-directional hypotheses are taught in the **Unit II** deck (slides 13–16), so they are in scope through Unit II.
 
 ### Where CIE-1 material counts
 | Component | Marks | Draws from CIE-1 portion? |
@@ -109,7 +109,7 @@ Read literally, the CIE-1 portion **stops at Data Analysis**. Data Collection an
 | Characteristics of a Good Sample Design | Representative · small sampling error · viable within budget · controls systematic bias · results generalisable with confidence |
 | Types of Sample Design | **Probability**: simple random, systematic, stratified, cluster/area, multi-stage. **Non-probability**: convenience, judgement/purposive, quota |
 
-**C. Data Analysis**: *boundary; see the note above*
+**C. Data Analysis**: *not in CIE-1 (slides 55–80); see the note above*
 Testing of Hypotheses (H₀, H₁, Type I & II errors, Level of Significance) · tests for Mean, Variance, Proportion · Chi-square · One-way ANOVA · ANOCOVA.
 
 ---
@@ -140,6 +140,6 @@ These are the usual question shapes, not a prediction of the paper.
 
 ---
 
-## Open items
-- [ ] Add the class slide deck (slides 1–54) to `CIE-1/slides/` so topics can be matched slide by slide
-- [ ] Confirm whether any part of Data Analysis falls on or before slide 54
+## Study material
+- **[`RMIPR-CIE1-Must-Learn.pdf`](RMIPR-CIE1-Must-Learn.pdf)**: 21 must-learn questions (7 per unit) with exam-ready 4/5/6-mark answers, 13 rapid-fire short answers, 10 L3 scenario drills, an analysis of the Nov 2024 CIE-1 paper, a study plan and a one-page cheat sheet.
+- Source: [`must-learn/guide.html`](must-learn/guide.html). Rebuild with `node must-learn/build.js` (needs Playwright).

@@ -11,6 +11,7 @@ See [`CIE-1/PORTIONS.md`](CIE-1/PORTIONS.md).
 |---|---|
 | [`syllabus/SYLLABUS.md`](syllabus/SYLLABUS.md) | Full syllabus: all 5 units, textbooks, COs, assessment scheme |
 | [`syllabus/scans/`](syllabus/scans/) | Original syllabus pages (48–50) |
+| [`CIE-1/RMIPR-CIE1-Must-Learn.pdf`](CIE-1/RMIPR-CIE1-Must-Learn.pdf) | **CIE-1 study guide**: 21 must-learn questions with exam-ready answers, 2024 paper analysis, study plan, scenario drills, cheat sheet |
 | [`CIE-1/PORTIONS.md`](CIE-1/PORTIONS.md) | CIE-1 portion map: scope, topic breakdown, how the units connect |
 
 ## Exam split

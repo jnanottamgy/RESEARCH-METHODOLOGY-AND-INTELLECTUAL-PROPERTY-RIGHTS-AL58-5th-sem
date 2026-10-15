@@ -1,0 +1,1383 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>RMIPR CIE-1 Must-Learn</title>
+<style>
+@font-face { font-family: "Fraunces"; src: url("fonts/fraunces.woff2") format("woff2"); font-weight: 100 900; }
+@font-face { font-family: "Caveat"; src: url("fonts/caveat.woff2") format("woff2"); font-weight: 600; }
+@font-face { font-family: "JB Mono"; src: url("fonts/jbmono.woff2") format("woff2"); font-weight: 100 800; }
+
+:root {
+  --ink: #17162A;
+  --ink-2: #45445A;
+  --muted: #7B7A8E;
+  --line: #E4E2EE;
+  --wash: #F5F4FA;
+  --u1: #4C3FD6;  --u1-wash: #EEECFD;  --u1-deep: #2E2596;
+  --u2: #0A7A62;  --u2-wash: #E3F4EE;  --u2-deep: #075442;
+  --u3: #CF4A16;  --u3-wash: #FDEDE4;  --u3-deep: #8F310C;
+  --hot: #E0323A;
+  --hi: rgba(255, 214, 10, 0.55);
+  --note: #FFF6C9;
+  --u: var(--ink); --uw: var(--wash); --ud: var(--ink);
+}
+
+@page {
+  size: A4;
+  margin: 15mm 15mm 16mm 15mm;
+  @bottom-left { content: "RMIPR · AL58 · CIE-1 Must-Learn"; font-family: Inter, sans-serif; font-size: 7.5pt; color: #9A99AC; letter-spacing: .02em; }
+  @bottom-right { content: counter(page) " / " counter(pages); font-family: "JB Mono", monospace; font-size: 7.5pt; color: #9A99AC; }
+}
+@page cover { margin: 0; @bottom-left { content: none; } @bottom-right { content: none; } }
+
+* { box-sizing: border-box; }
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { margin: 0; font-family: Inter, sans-serif; font-size: 9.3pt; line-height: 1.47; color: var(--ink); background: #fff; }
+p { margin: 0 0 2.2mm; }
+b, strong { font-weight: 650; }
+mark { background: linear-gradient(to bottom, rgba(255,214,10,0) 0, rgba(255,214,10,0) 56%, var(--hi) 56%, var(--hi) 94%, rgba(255,214,10,0) 94%); color: inherit; padding: 0 1px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+.mono { font-family: "JB Mono", monospace; }
+.hand { font-family: "Caveat", cursive; }
+sub { font-size: 70%; }
+
+.u1 { --u: var(--u1); --uw: var(--u1-wash); --ud: var(--u1-deep); }
+.u2 { --u: var(--u2); --uw: var(--u2-wash); --ud: var(--u2-deep); }
+.u3 { --u: var(--u3); --uw: var(--u3-wash); --ud: var(--u3-deep); }
+
+h1, h2, h3, h4 { font-family: "Fraunces", serif; margin: 0; letter-spacing: -0.01em; font-optical-sizing: auto; }
+
+/* ---------------- COVER ---------------- */
+.cover { page: cover; width: 210mm; height: 297mm; background: #15142B; color: #fff; position: relative; overflow: hidden; padding: 20mm 18mm 16mm; display: flex; flex-direction: column; }
+.cover .dots { position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,.07) 1px, transparent 1.2px); background-size: 6mm 6mm; }
+.cover .glow { position: absolute; width: 150mm; height: 150mm; right: -50mm; top: -40mm; border-radius: 50%; background: radial-gradient(circle, rgba(124,108,255,.35), transparent 65%); }
+.cover > * { position: relative; }
+.cover .kicker { font-family: "JB Mono", monospace; font-size: 8.5pt; letter-spacing: .14em; color: #B9B5FF; text-transform: uppercase; }
+.cover .title { margin-top: 26mm; font-family: "Fraunces", serif; font-weight: 800; font-size: 54pt; line-height: .98; letter-spacing: -0.02em; }
+.cover .title .big { display: inline-block; font-size: 128pt; line-height: .8; color: #15142B; background: #FFD60A; padding: 2mm 5mm 0; border-radius: 3mm; transform: rotate(-2.5deg); margin-top: 4mm; }
+.cover .sub { margin-top: 10mm; font-size: 13pt; line-height: 1.4; color: #DCDAF0; max-width: 150mm; }
+.cover .sub b { color: #fff; }
+.cover .units { margin-top: 9mm; display: flex; gap: 3mm; flex-wrap: wrap; }
+.cover .uchip { border-radius: 99px; padding: 1.6mm 4.2mm; font-size: 9pt; font-weight: 600; color: #fff; }
+.cover .uchip span { opacity: .75; font-weight: 500; }
+.cover .uchip.x { background: transparent; border: 1px dashed rgba(255,255,255,.35); color: rgba(255,255,255,.6); font-weight: 500; }
+.cover .stats { margin-top: auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 4mm; border-top: 1px solid rgba(255,255,255,.15); padding-top: 7mm; }
+.cover .stat .n { font-family: "Fraunces", serif; font-weight: 700; font-size: 26pt; line-height: 1; color: #fff; }
+.cover .stat .l { font-size: 8pt; color: #B4B2CC; margin-top: 1.5mm; line-height: 1.35; }
+.cover .legend { margin-top: 7mm; display: grid; grid-template-columns: 1fr 1fr; gap: 2.5mm 8mm; font-size: 8.4pt; color: #D4D2E8; }
+.cover .legend .k { display: inline-block; min-width: 18mm; font-weight: 700; }
+.cover .legend mark { background: linear-gradient(to bottom, rgba(255,214,10,0) 0, rgba(255,214,10,0) 56%, rgba(255,214,10,.75) 56%, rgba(255,214,10,.75) 94%, rgba(255,214,10,0) 94%); color: #fff; }
+.cover .foot { margin-top: 7mm; font-size: 7.8pt; color: #8F8DAA; display: flex; justify-content: space-between; }
+
+/* ---------------- GENERIC SECTIONS ---------------- */
+.page-break { break-before: page; }
+.sec-kicker { font-family: "JB Mono", monospace; font-size: 7.6pt; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.sec-title { font-size: 25pt; font-weight: 750; line-height: 1.08; margin: 1.5mm 0 3mm; }
+.lede { font-size: 10.2pt; color: var(--ink-2); max-width: 165mm; margin-bottom: 5mm; }
+h3.block { font-size: 13pt; font-weight: 700; margin: 6mm 0 2.5mm; }
+
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; }
+.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3.5mm; }
+.card { background: var(--wash); border-radius: 3mm; padding: 3.6mm 4mm; break-inside: avoid; }
+.card h4 { font-size: 11pt; font-weight: 700; margin-bottom: 1.6mm; }
+.card p:last-child, .card ul:last-child { margin-bottom: 0; }
+.card.dark { background: #15142B; color: #E8E6F7; }
+.card.dark h4 { color: #fff; }
+.card.dark mark { color: #fff; background: linear-gradient(to bottom, rgba(255,214,10,0) 0, rgba(255,214,10,0) 56%, rgba(255,214,10,.6) 56%, rgba(255,214,10,.6) 94%, rgba(255,214,10,0) 94%); }
+.card.dark b { color: #fff; }
+.dark-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; border-top: 1px solid rgba(255,255,255,.16); padding-top: 2.6mm; margin-top: 1mm; font-size: 8.4pt; line-height: 1.4; color: #CFCDE6; }
+.decode .card { font-size: 8.7pt; line-height: 1.42; padding: 3.1mm 3.6mm; }
+.decode .card h4 { font-size: 10.4pt; margin-bottom: 1.1mm; }
+.decode table.pyq td { padding: 1.15mm 2mm; }
+.decode .lede { margin-bottom: 3.5mm; }
+.strategy .card { font-size: 8.7pt; line-height: 1.42; padding: 3.1mm 3.6mm; }
+.strategy .card h4 { font-size: 10.4pt; margin-bottom: 1.1mm; }
+.strategy h3.block { margin: 4.5mm 0 2.2mm; }
+.strategy table td { padding: 1.3mm 2.2mm; }
+.keep { break-inside: avoid; }
+
+ul, ol { margin: 0 0 2.2mm; padding-left: 4.6mm; }
+li { margin: 0 0 1mm; }
+li::marker { color: var(--u); font-weight: 700; }
+ul.tight li { margin-bottom: .5mm; }
+
+/* ---------------- TABLES ---------------- */
+table { width: 100%; border-collapse: collapse; margin: 1.5mm 0 3mm; font-size: 8.7pt; line-height: 1.38; break-inside: avoid; }
+th { text-align: left; font-weight: 650; background: var(--uw); color: var(--ud); padding: 1.8mm 2.2mm; font-size: 8.3pt; }
+td { padding: 1.6mm 2.2mm; border-bottom: 1px solid var(--line); vertical-align: top; }
+tr:last-child td { border-bottom: none; }
+td.lab { font-weight: 650; color: var(--ud); white-space: nowrap; }
+table.pyq td, table.pyq th { font-size: 8.3pt; }
+.tag { display: inline-block; font-family: "JB Mono", monospace; font-size: 6.8pt; font-weight: 700; padding: .4mm 1.6mm; border-radius: 99px; letter-spacing: .03em; }
+.tag.u1 { background: var(--u1-wash); color: var(--u1-deep); }
+.tag.u2 { background: var(--u2-wash); color: var(--u2-deep); }
+.tag.u3 { background: var(--u3-wash); color: var(--u3-deep); }
+.tag.slide { background: #E9F7EE; color: #1E7A43; }
+.tag.text { background: #FDECEC; color: #A72A2F; }
+.tag.mix { background: #FFF4D1; color: #8A6400; }
+
+/* ---------------- UNIT HERO ---------------- */
+.unit-hero { break-before: page; background: var(--u); color: #fff; border-radius: 4mm; padding: 7mm 8mm 6.5mm; position: relative; overflow: hidden; margin-bottom: 5mm; }
+.unit-hero::after { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,.12) 1px, transparent 1.2px); background-size: 5mm 5mm; }
+.unit-hero > * { position: relative; z-index: 1; }
+.unit-hero .num { font-family: "JB Mono", monospace; font-size: 8pt; letter-spacing: .16em; text-transform: uppercase; opacity: .8; }
+.unit-hero h2 { font-size: 30pt; font-weight: 800; line-height: 1.02; margin: 1.5mm 0 2mm; }
+.unit-hero .topics { font-size: 9.4pt; opacity: .92; max-width: 160mm; }
+.unit-hero .facts { display: flex; gap: 7mm; margin-top: 4.5mm; font-size: 8.2pt; }
+.unit-hero .facts b { display: block; font-family: "Fraunces", serif; font-size: 16pt; font-weight: 700; line-height: 1.1; }
+.unit-hero .facts span { opacity: .82; }
+
+/* ---------------- QUESTION ---------------- */
+.q { margin: 0 0 7mm; }
+.q-head { display: grid; grid-template-columns: 17mm 1fr; column-gap: 3mm; align-items: start; break-after: avoid; border-top: 1.4px solid var(--ink); padding-top: 3mm; margin-bottom: 2.6mm; }
+.q-id { font-family: "Fraunces", serif; font-weight: 800; font-size: 21pt; line-height: 1; color: var(--u); }
+.q-id small { display: block; font-family: "JB Mono", monospace; font-size: 6.6pt; font-weight: 700; letter-spacing: .1em; color: var(--muted); margin-top: 1.2mm; }
+.q-title { font-family: "Fraunces", serif; font-weight: 650; font-size: 12.6pt; line-height: 1.25; }
+.q-meta { display: flex; flex-wrap: wrap; gap: 1.6mm; align-items: center; margin-top: 2mm; }
+.marks { font-family: "JB Mono", monospace; font-weight: 700; font-size: 7.8pt; background: var(--u); color: #fff; border-radius: 99px; padding: .5mm 2.4mm; }
+.stars { font-size: 8pt; font-weight: 700; padding: .5mm 2.2mm; border-radius: 99px; letter-spacing: .02em; }
+.s3 { background: #FDE4E5; color: #B3141C; }
+.s2 { background: #FFF0CF; color: #8C5A00; }
+.s1 { background: #ECEBF3; color: #5A596E; }
+.src { font-family: "JB Mono", monospace; font-size: 7pt; color: var(--ink-2); background: var(--wash); border-radius: 99px; padding: .6mm 2.2mm; }
+.q-body { padding-left: 20mm; }
+.q-body > p:first-child { font-size: 9.6pt; }
+.pt { margin-bottom: 1.6mm; }
+.pt b.h { color: var(--ud); }
+.sub-h { font-family: "Fraunces", serif; font-weight: 700; font-size: 10.4pt; color: var(--ud); margin: 3mm 0 1.4mm; break-after: avoid; }
+
+.tip { background: var(--note); border-radius: 2.6mm; padding: 2.6mm 3.6mm 2.8mm; margin: 2.6mm 0 0; break-inside: avoid; font-size: 8.8pt; }
+.tip .hand { font-size: 13.5pt; color: #7A5600; line-height: 1; display: block; margin-bottom: .8mm; }
+.ex { background: var(--uw); border-radius: 2.6mm; padding: 2.4mm 3.4mm; margin: 2mm 0 2.6mm; break-inside: avoid; font-size: 8.9pt; }
+.ex .lbl, .lbl { font-family: "JB Mono", monospace; font-weight: 700; font-size: 6.9pt; letter-spacing: .12em; text-transform: uppercase; color: var(--ud); display: block; margin-bottom: .8mm; }
+.mn { display: inline-block; font-family: "JB Mono", monospace; font-weight: 700; font-size: 7.6pt; background: #15142B; color: #FFD60A; border-radius: 1.6mm; padding: .5mm 2mm; letter-spacing: .04em; }
+figure { margin: 2.4mm 0 3mm; break-inside: avoid; }
+figcaption { font-size: 7.6pt; color: var(--muted); margin-top: 1mm; }
+.cols2 { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; }
+.cols2 > div { break-inside: avoid; }
+.pc h5 { font-family: "Fraunces", serif; font-size: 10pt; margin: 0 0 1mm; font-weight: 700; }
+.pc.plus h5 { color: #0A7A62; }
+.pc.minus h5 { color: #C0392B; }
+
+/* ---------------- RAPID FIRE ---------------- */
+.rf-head { display: flex; align-items: baseline; gap: 3mm; margin: 2mm 0 3mm; break-after: avoid; border-top: 1.4px solid var(--ink); padding-top: 3mm; }
+.rf-head h3 { font-size: 15pt; font-weight: 750; }
+.rf-head span { font-size: 8.6pt; color: var(--muted); }
+.rf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5mm; }
+.rf { background: var(--uw); border-radius: 3mm; padding: 3.2mm 3.6mm; break-inside: avoid; font-size: 8.7pt; line-height: 1.42; }
+.rf.wide { grid-column: span 2; }
+.rf h4 { font-family: "Fraunces", serif; font-size: 10.6pt; font-weight: 700; color: var(--ud); margin-bottom: 1.2mm; line-height: 1.22; }
+.rf .q-meta { margin: 0 0 1.8mm; }
+.rf ul { padding-left: 4mm; margin-bottom: 1mm; }
+.rf table { font-size: 8.1pt; margin: 1mm 0; }
+.rf th { background: rgba(255,255,255,.65); }
+.rf td { border-bottom-color: rgba(0,0,0,.08); }
+
+/* ---------------- FIELD / GRIDS ---------------- */
+.field { border-collapse: separate; border-spacing: 1.4mm; width: auto; margin: 1mm 0; }
+.field td { border: none; background: #fff; border-radius: 1.6mm; text-align: center; font-weight: 700; font-family: "JB Mono", monospace; font-size: 8.4pt; padding: 2mm 3.4mm; box-shadow: inset 0 0 0 1px rgba(0,0,0,.12); }
+.field td.blk { background: transparent; box-shadow: none; text-align: right; font-family: Inter, sans-serif; font-weight: 650; color: var(--ud); padding-right: 1mm; font-size: 8.3pt; }
+.field td.f1 { background: #DCEFFF; } .field td.f2 { background: #FFE3D3; } .field td.f3 { background: #E1F5DD; }
+.field td.ta { background: #E7E4FF; } .field td.tb { background: #FFE3D3; } .field td.tc { background: #DDF3EA; } .field td.td { background: #FFF1C2; }
+.field th { background: transparent; color: var(--muted); font-weight: 600; font-size: 7.4pt; text-align: center; padding: 0; }
+
+.night .card { padding: 2.4mm 3mm; font-size: 8pt; line-height: 1.36; }
+.night .card h4 { font-size: 9.6pt; margin-bottom: .8mm; }
+.night .grid3 { gap: 2.4mm; }
+.night .mn { font-size: 7pt; padding: .3mm 1.5mm; }
+.night .sec-title { margin-bottom: 2.5mm; }
+</style>
+</head>
+<body>
+
+<!-- =========================================================
+     COVER
+========================================================= -->
+<section class="cover">
+  <div class="dots"></div>
+  <div class="glow"></div>
+  <div class="kicker">AL58 · Research Methodology &amp; IPR · 5th Sem · CIE-1</div>
+  <div class="title">The Must-Learn<br><span class="big">21</span></div>
+  <div class="sub">Exam-ready answers for the questions most likely to come in <b>CIE-1</b>. Built from <b>all 179 class slides</b> and the <b>Nov 2024 CIE-1 paper</b>. Written in <b>4 · 5 · 6-mark</b> shape so you can reproduce them in the hall.</div>
+  <div class="units">
+    <span class="uchip" style="background:var(--u1)">Unit I <span>· Intro · Lit review · Citations</span></span>
+    <span class="uchip" style="background:var(--u2)">Unit II <span>· Research &amp; experimental design</span></span>
+    <span class="uchip" style="background:var(--u3)">Unit III <span>· Data collection · Sampling · Scaling (slides 1–54)</span></span>
+    <span class="uchip x">Not in CIE-1: Data Analysis (U3 slides 55–80) · Units IV–V</span>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="n">21</div><div class="l">core questions<br>7 per unit, full answers</div></div>
+    <div class="stat"><div class="n">13</div><div class="l">rapid-fire 3–5 markers<br>compact answers</div></div>
+    <div class="stat"><div class="n">10</div><div class="l">L3 scenario drills<br>the "apply" questions</div></div>
+    <div class="stat"><div class="n">25+</div><div class="l">target out of 30<br>2 questions × 15</div></div>
+  </div>
+  <div class="legend">
+    <div><span class="k" style="color:#FF8A8F">★★★</span> Banker: asked before or a slide example. Learn it word for word.</div>
+    <div><span class="k" style="color:#FFC857">★★</span> Very likely. Core slide content not yet asked.</div>
+    <div><span class="k" style="color:#B4B2CC">★</span> Good to know. Short-answer insurance.</div>
+    <div><mark>Highlighted words</mark> are the keywords the examiner scans for. Underline them in your answer.</div>
+  </div>
+  <div class="foot"><span>Start with page 2 (how the paper works), then page 3 (how to study). Do the ★★★ questions first.</span><span>v1 · CIE-1</span></div>
+</section>
+
+<!-- =========================================================
+     DECODE THE PAPER
+========================================================= -->
+<section class="decode">
+  <div class="sec-kicker">Page 2 · What last year's paper tells us</div>
+  <h1 class="sec-title">Decoding the CIE-1 paper</h1>
+  <p class="lede">Nov 2024 CIE-1: 60 minutes, 30 marks, <b>answer any two full questions</b> out of three, each worth 15. Portions were lectures L1–L14 (Units I and II only). Here is where every part came from.</p>
+
+  <table class="pyq">
+    <tr><th style="width:8%">Q</th><th>Question (2024)</th><th style="width:8%">Unit</th><th style="width:7%">Marks</th><th style="width:7%">Level</th><th style="width:22%">Source</th></tr>
+    <tr><td class="lab">1a</td><td>Briefly explain the different types of research</td><td><span class="tag u1">U1</span></td><td>6</td><td>L2</td><td><span class="tag slide">SLIDES</span> U1 s.19–21</td></tr>
+    <tr><td class="lab">1b</td><td>Define independent, dependent, extraneous, continuous &amp; discrete variables</td><td><span class="tag u2">U2</span></td><td>5</td><td>L1</td><td><span class="tag mix">SLIDES + KOTHARI</span> U2 s.6–9</td></tr>
+    <tr><td class="lab">1c</td><td>Key differences between engineering research and research in other fields</td><td><span class="tag u1">U1</span></td><td>4</td><td>L3</td><td><span class="tag text">TEXTBOOK</span> Deb et al.</td></tr>
+    <tr><td class="lab">2a</td><td>Why is ethics important in research? Key ethical considerations</td><td><span class="tag u1">U1</span></td><td>6</td><td>L2</td><td><span class="tag slide">SLIDES</span> U1 s.22–24</td></tr>
+    <tr><td class="lab">2b</td><td>3×2×2 factorial (therapy × duration × gender): list all combinations</td><td><span class="tag u2">U2</span></td><td>6</td><td>L3</td><td><span class="tag slide">SLIDE, WORD FOR WORD</span> U2 s.48</td></tr>
+    <tr><td class="lab">2c</td><td>Your team must frame a project title: what will you consider?</td><td><span class="tag u1">U1</span></td><td>3</td><td>L3</td><td><span class="tag slide">SLIDES</span> U1 s.36–38</td></tr>
+    <tr><td class="lab">3a</td><td>List and explain three main functions of citation</td><td><span class="tag u1">U1</span></td><td>6</td><td>L2</td><td><span class="tag slide">SLIDE</span> U1 s.34</td></tr>
+    <tr><td class="lab">3b</td><td>Explain RBD; design it for F1, F2, F3 on rice, wheat, jowar</td><td><span class="tag u2">U2</span></td><td>6</td><td>L3</td><td><span class="tag slide">SLIDE EXAMPLE, TWEAKED</span> U2 s.33</td></tr>
+    <tr><td class="lab">3c</td><td>Compare critical and creative reading</td><td><span class="tag u1">U1</span></td><td>3</td><td>L2</td><td><span class="tag slide">SLIDE</span> U1 s.32</td></tr>
+  </table>
+
+  <div class="grid2" style="margin-top:4mm">
+    <div class="card"><h4>1 · The slides are the syllabus</h4>Seven of the nine parts came straight off the class slides. 1b was mostly slides (only "continuous / discrete" is from Kothari). Only 1c needed the textbook. <b>If it's on a slide, it can be asked.</b></div>
+    <div class="card"><h4>2 · Slide examples get recycled</h4>The 3×2×2 therapy question is <b>copied word for word</b> from Unit 2 slide 48. The RBD question reuses slide 33's fertiliser example with the crops swapped (rice, corn, wheat became rice, wheat, jowar). <b>Learn every worked example on the slides, then expect a twist.</b></div>
+    <div class="card"><h4>3 · Every question mixes units</h4>All three questions were built as <b>U1 + U2 + U1</b>. You can't dodge a unit by choosing questions: a skipped unit costs you marks in <i>every</i> question.</div>
+    <div class="card"><h4>4 · 42% of the marks were "apply" (L3)</h4>1c, 2b, 2c and 3b were L3: 19 of the 45 marks on the paper. They give you a scenario and ask you to design, list or analyse. That's why this pack has <b>scenario drills</b> (page 24).</div>
+  </div>
+
+  <div class="card dark" style="margin-top:3.5mm">
+    <h4>This year's prediction</h4>
+    <p>Portions grew: <b>Unit III up to slide 54</b> is now in. So expect each 15-mark question to carry <mark>one part from each unit</mark> (for example U1 6 + U2 5 + U3 4, rotated). Unit I drops from six parts to about three, and Unit III gets about three. Last year's 6-mark Unit II questions were factorial and RBD. <b>Latin Square is the one design not yet asked</b>, which makes it the strongest single candidate. Repeats of RBD and factorial are still very possible: teachers reuse papers.</p>
+    <div class="dark-row">
+      <div><b>Marks split.</b> 6 + 5 + 4 or 6 + 6 + 3. A 6-marker is 40% of a question: that's where answers win or lose.</div>
+      <div><b>The 25+ maths.</b> You write 30 marks. To score 25 you can lose at most 5, so every part needs complete lists, an example and a diagram or table.</div>
+      <div><b>An honest note.</b> Nobody can promise 100%. But every 2024 question came from material in this pack, and it covers every CIE-1 slide.</div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     HOW TO STUDY
+========================================================= -->
+<section class="page-break strategy">
+  <div class="sec-kicker">Page 3 · Strategy</div>
+  <h1 class="sec-title">How to study this (and how to write it)</h1>
+
+  <div class="grid2">
+    <div class="card">
+      <h4>If you have 3 days</h4>
+      <ol class="tight">
+        <li><b>Day 1: Unit II.</b> It's the most scoring (definitions plus designs you can draw). Draw the RBD, LSD and factorial layouts from memory twice.</li>
+        <li><b>Day 2: Unit III</b>, then the Unit I ★★★ questions. Make the comparison tables your own.</li>
+        <li><b>Day 3:</b> rest of Unit I, the rapid-fire answers and the scenario drills. Then a <b>timed mock</b>: one full 15-mark question in 25 minutes.</li>
+      </ol>
+      <p style="margin:0">Night before: the one-page cheat sheet (page 25) and sleep.</p>
+    </div>
+    <div class="card">
+      <h4>If you have one night (about 6 hours)</h4>
+      <ol class="tight">
+        <li><b>Hours 1–2:</b> Unit II ★★★: variables, hypothesis, RBD, LSD, factorial.</li>
+        <li><b>Hour 3:</b> Unit I ★★★: types of research, ethics, citation functions, critical vs creative reading, title.</li>
+        <li><b>Hour 4:</b> Unit III ★★★: primary vs secondary, questionnaire vs schedule, sampling definitions, sample design types, NOIR scales.</li>
+        <li><b>Hour 5:</b> all the ★★ questions, skeleton only (headings plus keywords).</li>
+        <li><b>Hour 6:</b> cheat sheet, scenario drills, then sleep.</li>
+      </ol>
+    </div>
+  </div>
+
+  <h3 class="block">The method: active recall, not re-reading</h3>
+  <div class="grid3">
+    <div class="card"><h4>1 · Read once</h4>Read the answer slowly. Say the example out loud in your own words.</div>
+    <div class="card"><h4>2 · Close and write</h4>Cover the page and write only the <b>skeleton</b>: definition, headings and the highlighted keywords. Takes 2 minutes.</div>
+    <div class="card"><h4>3 · Check and repeat</h4>Mark what you missed and redo it. Come back the next day: the second recall is what makes it stick.</div>
+  </div>
+
+  <h3 class="block">The answer formula: write to the marks</h3>
+  <table class="u1">
+    <tr><th style="width:11%">Marks</th><th>Structure that gets full marks</th><th style="width:22%">Length (handwritten)</th></tr>
+    <tr><td class="lab">6 M</td><td>1-line <b>definition</b>, then 5–6 <b>headed points</b>, then an <b>example</b>, then a <b>diagram or table</b>, then a 1-line wrap-up</td><td>1 to 1½ pages</td></tr>
+    <tr><td class="lab">5 M</td><td>Definition, then 4–5 headed points, then an example</td><td>About 1 page</td></tr>
+    <tr><td class="lab">4 M</td><td>4 crisp points, <b>or</b> a 4-row comparison table</td><td>About ¾ page</td></tr>
+    <tr><td class="lab">3 M</td><td>3 points or a 3-row table. No essays.</td><td>About ½ page</td></tr>
+  </table>
+
+  <div class="grid2">
+    <div class="card">
+      <h4>In the exam hall</h4>
+      <ul class="tight">
+        <li><b>First 5 minutes:</b> read all three questions. Pick the two where your <b>6-markers</b> are strongest.</li>
+        <li><b>Clock:</b> 5 min choosing, then 25 min for question A, 25 min for question B, then 5 min checking.</li>
+        <li>Never leave a part blank. A correct definition alone earns 1–2 marks.</li>
+        <li>Number every part exactly as in the paper (2a, 2b…).</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Presentation rules</h4>
+      <ul class="tight">
+        <li><b>"Differentiate" or "compare" means a table</b>, every time.</li>
+        <li><b>A design question means a diagram:</b> RBD and LSD grids, the factorial table, the CRD flow.</li>
+        <li><b>Definitions in slide wording.</b> The examiner marks against the slides.</li>
+        <li><b>Underline</b> the keywords and give every point a heading.</li>
+        <li><b>L3 questions:</b> restate the scenario, name the concept, apply it (layout, list or table).</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     UNIT I
+========================================================= -->
+<section class="u1">
+  <div class="unit-hero">
+    <div class="num">Unit I · CO1</div>
+    <h2>Research Methodology</h2>
+    <div class="topics">Meaning, objectives and types of research · Ethics and misconduct · Literature review and technical reading · Citations, title and keywords · Acknowledgments</div>
+    <div class="facts">
+      <div><b>47</b><span>slides</span></div>
+      <div><b>6 of 9</b><span>parts in 2024</span></div>
+      <div><b>~3 parts</b><span>expected this year</span></div>
+    </div>
+  </div>
+
+  <!-- U1 Q1 -->
+  <div class="q">
+    <div class="q-head">
+      <div class="q-id">Q1<small>UNIT I</small></div>
+      <div>
+        <div class="q-title">Briefly explain the different types of research.</div>
+        <div class="q-meta"><span class="marks">6 M</span><span class="stars s3">★★★ Banker</span><span class="src">PYQ 2024 · Q1a</span><span class="src">Slides 19–21</span></div>
+      </div>
+    </div>
+    <div class="q-body">
+      <p>Research is classified in <mark>pairs</mark>, depending on its purpose, the kind of data it uses, and where it is carried out.</p>
+      <div class="pt"><b class="h">1. Descriptive vs Analytical.</b> <mark>Descriptive</mark> research includes <mark>surveys and fact-finding enquiries</mark>; it describes the state of affairs as it exists, and the researcher has no control over the variables (<i>e.g.</i> a survey of how many students use UPI daily). In <mark>analytical</mark> research the researcher uses <mark>facts or information already available</mark> and analyses them to make a <mark>critical evaluation</mark> (<i>e.g.</i> analysing published accident data to find the main causes).</div>
+      <div class="pt"><b class="h">2. Applied vs Fundamental.</b> <mark>Applied (action)</mark> research aims at finding a <mark>solution for an immediate problem</mark> facing society or an industrial or business organisation (<i>e.g.</i> reducing the rejection rate on a production line). <mark>Fundamental (basic or pure)</mark> research is concerned with <mark>generalisations and the formulation of a theory</mark> (<i>e.g.</i> studying the properties of graphene).</div>
+      <div class="pt"><b class="h">3. Quantitative vs Qualitative.</b> <mark>Quantitative</mark> research is based on the <mark>measurement of quantity or amount</mark> (<i>e.g.</i> battery life in hours). <mark>Qualitative</mark> research is concerned with phenomena relating to <mark>quality or kind</mark>, such as motives, opinions and attitudes (<i>e.g.</i> why customers prefer a brand).</div>
+      <div class="pt"><b class="h">4. Conceptual vs Empirical.</b> <mark>Conceptual</mark> research relates to some <mark>abstract idea or theory</mark>; thinkers use it to develop new concepts or reinterpret existing ones. <mark>Empirical</mark> research is <mark>data-based</mark>: its conclusions can be <mark>verified by observation or experiment</mark>, so it is also called <i>experimental</i> research.</div>
+      <div class="pt"><b class="h">5. Some other types.</b></div>
+      <ul class="tight">
+        <li><b>One-time vs longitudinal:</b> confined to a single time period vs carried on over several time periods.</li>
+        <li><b>Field-setting, laboratory or simulation:</b> classified by the environment the research is done in.</li>
+        <li><b>Clinical or diagnostic:</b> uses case-study or in-depth methods to reach basic <mark>causal relations</mark>.</li>
+        <li><b>Conclusion-oriented vs decision-oriented:</b> in the first, the researcher is free to pick a problem and redesign the enquiry as they go; the second serves the needs of a decision-maker.</li>
+      </ul>
+      <figure>
+        <table class="u1" style="margin:0">
+          <tr><th>Basis</th><th>Type A</th><th>Type B</th></tr>
+          <tr><td class="lab">Purpose of study</td><td>Descriptive</td><td>Analytical</td></tr>
+          <tr><td class="lab">Use of results</td><td>Applied</td><td>Fundamental</td></tr>
+          <tr><td class="lab">Nature of data</td><td>Quantitative</td><td>Qualitative</td></tr>
+          <tr><td class="lab">Approach</td><td>Conceptual</td><td>Empirical</td></tr>
+        </table>
+        <figcaption>Draw this summary table at the end of your answer. It's a quick mark and shows the classification at a glance.</figcaption>
+      </figure>
+      <div class="tip"><span class="hand">Examiner's eye</span>Use the 4 pairs as headings, each with a <b>one-line example</b>. That alone gets 5/6. The "other types" line is your sixth mark. <span class="mn">D·A  A·F  Q·Q  C·E</span></div>
+    </div>
+  </div>
+
+  <!-- U1 Q2 -->
+  <div class="q">
+    <div class="q-head">
+      <div class="q-id">Q2<small>UNIT I</small></div>
+      <div>
+        <div class="q-title">Why is ethics important in research? What key ethical considerations should researchers keep in mind?</div>
+        <div class="q-meta"><span class="marks">6 M</span><span class="stars s3">★★★ Banker</span><span class="src">PYQ 2024 · Q2a</span><span class="src">Slides 22–24</span></div>
+      </div>
+    </div>
+    <div class="q-body">
+      <p><b>Definition.</b> Ethics in research <mark>provides guidelines for the responsible conduct of research</mark>: what researchers should and should not do while planning, doing and reporting research.</p>
+      <div class="sub-h">Why ethics is important</div>
+      <ul>
+        <li><b>Protects the integrity of research.</b> It prevents <mark>fabrication, falsification and plagiarism</mark>, so the research record stays true.</li>
+        <li><b>Builds trust and credibility.</b> The public, funders and other researchers rely on published results.</li>
+        <li><b>Prevents harm.</b> Misconduct <mark>can cause harm to people and the environment</mark>, wastes resources and damages the credibility of research.</li>
+        <li><b>Supports collaboration.</b> Fairness, mutual respect and honest credit-sharing let teams work together.</li>
+        <li><b>Ensures accountability.</b> Research uses public money and must follow laws and institutional policies.</li>
+      </ul>
+      <div class="sub-h">Key ethical principles (the slide's list)</div>
+      <table class="u1">
+        <tr><td class="lab">Honesty</td><td>Report data, results and methods honestly. Never fabricate, falsify or misrepresent.</td></tr>
+        <tr><td class="lab">Objectivity</td><td>Avoid bias in design, analysis, interpretation and peer review. Disclose conflicts of interest.</td></tr>
+        <tr><td class="lab">Integrity</td><td>Keep promises and agreements. Act with sincerity and consistency.</td></tr>
+        <tr><td class="lab">Carefulness</td><td>Avoid careless errors. Keep good records of all research activities.</td></tr>
+        <tr><td class="lab">Openness</td><td>Share data, results, ideas and tools. Be open to criticism.</td></tr>
+        <tr><td class="lab">Respect for IP</td><td>Honour patents and copyrights. Give proper credit (cite). Never plagiarise.</td></tr>
+        <tr><td class="lab">Confidentiality</td><td>Protect confidential material: papers under review, participant data, personnel records.</td></tr>
+      </table>
+      <p>Also mention: <b>responsible publication</b>, <b>social responsibility</b> and <b>protection of human and animal subjects</b>.</p>
+      <div class="tip"><span class="hand">Examiner's eye</span>The question has two halves ("why" and "considerations"). Give each a heading or you lose marks. Close with one line: <i>breaking these principles is research misconduct (FFP)</i>. Mnemonic for the 7: <span class="mn">Honest Officers In Court Openly Respect Confidentiality</span></div>
+    </div>
+  </div>
+
+  <!-- U1 Q3 -->
+  <div class="q">
+    <div class="q-head">
+      <div class="q-id">Q3<small>UNIT I</small></div>
+      <div>
+        <div class="q-title">What is research misconduct? Explain its types and the common forms of plagiarism.</div>
+        <div class="q-meta"><span class="marks">5 M</span><span class="stars s2">★★ Very likely</span><span class="src">Slides 23–25</span></div>
+      </div>
+    </div>
+    <div class="q-body">
+      <p><b>Definition.</b> Research misconduct is <mark>actions or questionable research practices that fall short of the standards of ethics, research and scholarship</mark> required to uphold the integrity of research. It harms people and the environment, wastes resources, undermines the research record and damages credibility.</p>
+      <div class="sub-h">Types of misconduct: FFP</div>
+      <div class="pt"><b class="h">Fabrication:</b> <mark>making up data or results</mark> and recording or reporting them (<i>e.g.</i> inventing readings for a test never performed).</div>
+      <div class="pt"><b class="h">Falsification:</b> <mark>manipulating research materials, or changing or omitting data or results</mark>, so the research is not accurately represented (<i>e.g.</i> deleting points that don't fit the hypothesis).</div>
+      <div class="pt"><b class="h">Plagiarism:</b> the <mark>appropriation of another person's ideas, processes, results or words without giving appropriate credit</mark>.</div>
+      <p><mark>Research misconduct does not include honest error or differences of opinion.</mark></p>
+      <div class="sub-h">Forms of plagiarism</div>
+      <table class="u1">
+        <tr><td class="lab">Direct</td><td>Taking another person's work and passing it off as your own without changing anything.</td></tr>
+        <tr><td class="lab">Self-plagiarism</td><td>Reusing your own earlier published work without acknowledging it.</td></tr>
+        <tr><td class="lab">Mosaic</td><td>Partly paraphrasing, so the paper is a mix of the sources' words and your own.</td></tr>
+        <tr><td class="lab">Paraphrasing without credit</td><td>Changing the wording of a source but not citing it.</td></tr>
+        <tr><td class="lab">Accidental</td><td>Using information from sources but forgetting to include citations.</td></tr>
+        <tr><td class="lab">Misattribution</td><td>Attributing information from one source to a different source.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- U1 Q4 -->
+  <div class="q">
+    <div class="q-head">
+      <div class="q-id">Q4<small>UNIT I</small></div>
+      <div>
+        <div class="q-title">List and explain the three main functions of citation.</div>
+        <div class="q-meta"><span class="marks">6 M</span><span class="stars s3">★★★ Banker</span><span class="src">PYQ 2024 · Q3a</span><span class="src">Slides 33–35, 41–42</span></div>
+      </div>
+    </div>
+    <div class="q-body">
+      <p><b>Citations (references)</b> <mark>credit others for their work while allowing readers to trace the source publication</mark>. Each source is cited <mark>twice</mark>: (1) an <b>in-text citation</b> exactly where it is quoted or paraphrased, and (2) an entry in the <b>reference list</b> at the end of the article or chapter.</p>
+      <div class="pt"><b class="h">1. Verification function.</b> Authors may make <mark>intentional or unintentional distortions</mark> or misleading statements. A citation lets readers <mark>check whether the original source justifies the claim</mark>, and whether the claim is properly described in the present work.</div>
+      <div class="pt"><b class="h">2. Acknowledgment function.</b> Researchers <mark>primarily receive credit for their work through citations</mark>. Citations play a crucial role in <mark>promotion and continued employment</mark>, and organisations award <mark>research funding</mark> based on reputation. They enhance a researcher's reputation and give the background of the work.</div>
+      <div class="pt"><b class="h">3. Documentation function.</b> Citations <mark>document scientific concepts</mark> and the <mark>historical progress of a technology</mark> over the years.</div>
+      <div class="sub-h">When citations fail their purpose (bonus point)</div>
+      <ul class="tight">
+        <li><b>Spurious:</b> citing work you haven't read, or that isn't relevant.</li>
+        <li><b>Biased:</b> citing only work that supports your view, or your friends' work.</li>
+        <li><b>Self-citations:</b> excessive citing of your own work to inflate counts.</li>
+        <li><b>Coercive:</b> an editor or reviewer pressuring authors to cite their journal or work.</li>
+      </ul>
+      <div class="ex"><span class="lbl">Example · IEEE style</span>In text: "…as shown in <b>[1]</b>." &nbsp;→&nbsp; Reference list: <b>[1]</b> D. Deb, R. Dey, and V. E. Balas, <i>Engineering Research Methodology</i>. Singapore: Springer, 2019.<br>Other styles on the slides: <b>ASCE</b> (civil) and <b>ASME</b> (mechanical).</div>
+      <div class="tip"><span class="hand">Examiner's eye</span>The question says "list and explain", so <b>name all three first</b> in one line, then explain each. Mnemonic <span class="mn">V·A·D</span>. The four failed-citation types are the extra that turns 5/6 into 6/6: <span class="mn">Some Bad Scholars Cheat</span></div>
+    </div>
+  </div>
+
+  <!-- U1 Q5 -->
+  <div class="q">
+    <div class="q-head">
+      <div class="q-id">Q5<small>UNIT I</small></div>
+      <div>
+        <div class="q-title">What should a literature review achieve? Explain new and existing knowledge and the analysis and synthesis of prior art.</div>
+        <div class="q-meta"><span class="marks">6 M</span><span class="stars s2">★★ Very likely</span><span class="src">Slides 26–31</span></div>
+      </div>
+    </div>
+    <div class="q-body">
+      <div class="pt"><b class="h">New and existing knowledge.</b> <mark>New knowledge can only be interpreted within the context of what is already known</mark>; it cannot exist without that foundation. To show your work is original, you describe what already exists and point out the missing part. Existing knowledge gives you <mark>the context, the significance, the originality and the tools</mark>.</div>
+      <div class="pt"><b class="h">What a literature review must do.</b></div>
+      <ul class="tight">
+        <li><mark>Summarise what is already known</mark> (the state of the art).</li>
+        <li>Detail the <mark>key concepts, main factors or parameters</mark> and the relationships between them.</li>
+        <li>Describe <mark>complementary existing approaches</mark>.</li>
+        <li>List the <mark>inconsistencies or shortcomings</mark> in published work.</li>
+        <li>Identify results that are <mark>inconclusive or contradictory</mark>.</li>
+        <li>Give a <mark>compelling reason to do further work</mark> (the research gap).</li>
+      </ul>
+      <div class="pt"><b class="h">The two-step process.</b> (i) Identify the <mark>major topics, subtopics or concepts</mark> relevant to the subject. (ii) Place the <mark>citation of each source</mark> (article, patent, website, data) in the right category, for example with a √. This gives a <b>concept matrix</b>:</div>
+      <figure>
+        <table class="u1" style="width:auto">
+          <tr><th>Source</th><th>Sensor design</th><th>Low power</th><th>Field testing</th><th>Cost analysis</th></tr>
+          <tr><td class="lab">Paper [1]</td><td>√</td><td>√</td><td></td><td></td></tr>
+          <tr><td class="lab">Paper [2]</td><td>√</td><td></td><td>√</td><td></td></tr>
+          <tr><td class="lab">Patent [3]</td><td>√</td><td>√</td><td></td><td></td></tr>
+        </table>
+        <figcaption>An empty column, like "Cost analysis" here, is the research gap.</figcaption>
+      </figure>
+      <div class="pt"><b class="h">Analysis and synthesis of prior art.</b> The researcher should work through these steps:</div>
+      <ol class="tight">
+        <li>Understanding the <mark>hypothesis</mark></li>
+        <li>Understanding the <mark>models and experimental conditions</mark> used</li>
+        <li><mark>Making connections</mark></li>
+        <li><mark>Comparing and contrasting</mark> the information</li>
+        <li>Finding the <mark>strong points and the loopholes</mark></li>
+      </ol>
+      <p><i>Analysis</i> breaks each work down; <i>synthesis</i> combines the works into one picture that reveals the gap.</p>
+      <div class="pt"><b class="h">Supporting tools.</b> <b>Bibliographic databases</b> are <mark>abstracting and indexing services</mark> that collect citation information and abstracts and make them searchable (Web of Science, Google Scholar). <b>Conceptualising research</b> means having a <mark>significant problem, the knowledge that will address it, and a possible way to make that new knowledge</mark>.</div>
+    </div>
+  </div>
+
+  <!-- U1 Q6 -->
+  <div class="q">
+    <div class="q-head">
+      <div class="q-id">Q6<small>UNIT I</small></div>
+      <div>
+        <div class="q-title">Compare critical reading and creative reading.</div>
+        <div class="q-meta"><span class="marks">4 M</span><span class="stars s3">★★★ Banker</span><span class="src">PYQ 2024 · Q3c</span><span class="src">Slide 32</span></div>
+      </div>
+    </div>
+    <div class="q-body">
+      <p>Reading a research paper is a critical process, but a good researcher reads it in two ways.</p>
+      <table class="u1">
+        <tr><th style="width:20%">Basis</th><th>Critical reading</th><th>Creative reading</th></tr>
+        <tr><td class="lab">Aim</td><td>To <mark>find mistakes</mark>, weaknesses and loopholes</td><td>To <mark>find good ideas</mark>: other applications, generalisations, extended work</td></tr>
+        <tr><td class="lab">Attitude</td><td>Sceptical and evaluative</td><td>Constructive and exploratory</td></tr>
+        <tr><td class="lab">Questions asked</td><td>Are the assumptions valid? Is the evidence enough? Is the method sound?</td><td>What did the authors <mark>miss</mark>? Are there <mark>plausible modifications</mark> that raise new practical challenges?</td></tr>
+        <tr><td class="lab">Difficulty</td><td><mark>Relatively easy</mark></td><td><mark>Harder</mark>: you must actively look for what isn't written</td></tr>
+        <tr><td class="lab">Output</td><td>A critique: list of flaws and limitations</td><td>New research ideas and problems</td></tr>
+      </table>
+      <p><b>Conclusion:</b> critical reading stops you building on wrong results; creative reading gives you your research problem. Use both.</p>
+    </div>
+  </div>
+
+  <!-- U1 Q7 -->
+  <div class="q">
+    <div class="q-head">
+      <div class="q-id">Q7<small>UNIT I</small></div>
+      <div>
+        <div class="q-title">Your team must frame a title for its research project. What will you consider? <span style="font-weight:500;color:var(--muted)">(Also asked as: "Explain the impact of title and keywords on citations.")</span></div>
+        <div class="q-meta"><span class="marks">3–4 M</span><span class="stars s3">★★★ Banker</span><span class="src">PYQ 2024 · Q2c</span><span class="src">Slides 36–38</span></div>
+      </div>
+    </div>
+    <div class="q-body">
+      <p>The <mark>citation rate</mark> of a paper depends on the significance and availability of the journal, the publication type, the research area and the importance of the work. It also depends on <mark>the length of the title, the type of title and the keywords chosen</mark>. The <mark>title is the most important attribute</mark> of a paper: it <mark>markets</mark> the paper and makes it <mark>traceable</mark>.</p>
+      <ol>
+        <li><b>Informative and accurate.</b> It should represent the paper effectively and match its scope: <i>problem + method (+ application)</i>.</li>
+        <li><b>Type of title.</b> <i>Descriptive</i> (states the topic), <i>declarative</i> (states the main finding) or <i>interrogative</i> (asks a question). Choose deliberately.</li>
+        <li><b>Length.</b> Concise. Cut filler like "A study on…", but don't make it so short that it's vague.</li>
+        <li><b>Specific markers.</b> A colon or hyphen to add a subtitle; a question mark for an interrogative title.</li>
+        <li><b>Keywords.</b> Use the words people actually search. <mark>Search engines, journals, digital libraries and indexing services use keywords to categorise the work and direct it to the relevant audience.</mark></li>
+        <li><b>Gains attention, without hype.</b> Catchy but not misleading. Avoid jargon and unexplained abbreviations.</li>
+      </ol>
+      <div class="ex"><span class="lbl">Example title for your project</span><b>"Low-Cost IoT Soil-Moisture Monitoring for Small Farms: Design and Field Evaluation"</b>: problem, method and application, keyword-rich, with a colon subtitle.</div>
+      <div class="tip"><span class="hand">Examiner's eye</span>For 3 marks: the three aspects from the slide (<b>type, length, specific markers</b>) plus one line on <b>keywords</b>, and write an example title. Examples make L3 answers score.</div>
+    </div>
+  </div>
+
+  <!-- U1 RAPID FIRE -->
+  <div class="rf-head"><h3>Rapid-fire · Unit I</h3><span>Compact answers for 3–5 mark parts</span></div>
+  <div class="rf-grid">
+    <div class="rf">
+      <h4>Meaning and objectives of research</h4>
+      <div class="q-meta"><span class="marks">4–5 M</span><span class="stars s2">★★</span><span class="src">Slides 13–18</span></div>
+      <p><b>Re + search</b>: "again" + "to examine closely". Research is a <mark>systematised effort to gain new knowledge</mark>, an art of scientific investigation, <mark>a movement from the known to the unknown</mark>.</p>
+      <p><b>Research comprises:</b> defining the problem → formulating a hypothesis → collecting, organising and evaluating data → making deductions → testing the conclusions.</p>
+      <p style="margin-bottom:.6mm"><b>Four objectives:</b></p>
+      <ol class="tight"><li>Gain <mark>familiarity or new insights</mark> (exploratory)</li><li><mark>Portray characteristics accurately</mark> (descriptive)</li><li>Determine <mark>frequency or association</mark> (diagnostic)</li><li><mark>Test a causal hypothesis</mark> (hypothesis-testing)</li></ol>
+      <p style="margin:0"><b>Motivations:</b> a research degree, the challenge of unsolved problems, intellectual joy, service to society, respectability.</p>
+    </div>
+    <div class="rf">
+      <h4>Engineering research vs research in other fields</h4>
+      <div class="q-meta"><span class="marks">4 M</span><span class="stars s3">★★★</span><span class="src">PYQ 2024 · Q1c · textbook</span></div>
+      <table>
+        <tr><th>Basis</th><th>Engineering</th><th>Other fields</th></tr>
+        <tr><td class="lab">Goal</td><td>Solve a practical problem; build a product, process or system</td><td>Understand nature, society or behaviour</td></tr>
+        <tr><td class="lab">Method</td><td>Modelling, simulation, prototyping, testing</td><td>Observation, surveys, interviews, case studies</td></tr>
+        <tr><td class="lab">Output</td><td>Designs, prototypes, <mark>patents</mark>, standards</td><td>Theories, interpretations, papers</td></tr>
+        <tr><td class="lab">Judged by</td><td>Performance, cost, safety, reliability</td><td>Truth, explanatory power</td></tr>
+        <tr><td class="lab">Constraints</td><td>Budget, safety, regulations, time to market</td><td>Mostly ethical and methodological</td></tr>
+      </table>
+    </div>
+    <div class="rf">
+      <h4>Knowledge flow through citations</h4>
+      <div class="q-meta"><span class="marks">4 M</span><span class="stars s1">★</span><span class="src">Slides 39–40</span></div>
+      <ul class="tight">
+        <li>Knowledge flows through verbal communication, books, documents, video, audio and images.</li>
+        <li>In engineering it flows mainly through <mark>books, theses, articles, patents and reports</mark>.</li>
+        <li><mark>Citing a source transmits knowledge from previous work to an innovation.</mark></li>
+        <li>Production of knowledge is linked to the <mark>citation network</mark>.</li>
+        <li>It flows <b>between co-authors</b> during collaboration, <b>among researchers</b> through citation networks, and <b>between institutions, departments and fields</b>.</li>
+      </ul>
+    </div>
+    <div class="rf">
+      <h4>Acknowledgments and attributions</h4>
+      <div class="q-meta"><span class="marks">4 M</span><span class="stars s1">★</span><span class="src">Slides 43–46</span></div>
+      <ul class="tight">
+        <li>A brief <mark>appreciation of a person, organisation or funding body</mark> that contributed to the work. It shows the relationship among people, agencies, institutions and research.</li>
+        <li><b>What to acknowledge:</b> <mark>quotations, ideas, facts, paraphrasing, the funding organisation, oral discussion or support, and laboratory and computer work</mark>.</li>
+        <li><b>Where:</b> at the end of the text or as a footnote. In a thesis, <mark>immediately after the table of contents</mark>.</li>
+        <li><b>Acknowledgment vs dedication:</b> acknowledgment thanks those who <i>helped</i>; a dedication honours anyone (parents, friends, God). Dedications appear <mark>only in books and theses</mark>, never in journal papers or patents.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     UNIT II
+========================================================= -->
+<section class="u2">
+  <div class="unit-hero">
+    <div class="num">Unit II · CO2</div>
+    <h2>Research Design &amp; Experimental Designs</h2>
+    <div class="topics">Need for research design · Variables · Hypothesis · Experimental and control groups · Treatments · CRD · RBD · Latin Square · Factorial</div>
+    <div class="facts">
+      <div><b>51</b><span>slides</span></div>
+      <div><b>3 of 9</b><span>parts in 2024 (17 marks)</span></div>
+      <div><b>Most scoring</b><span>definitions + drawable designs</span></div>
+    </div>
+  </div>
+
+  <!-- U2 Q1 -->
+  <div class="q">
+    <div class="q-head">
+      <div class="q-id">Q1<small>UNIT II</small></div>
+      <div>
+        <div class="q-title">Define: variable, independent variable, dependent variable, extraneous variable, confounded variable, continuous and discrete variables.</div>
+        <div class="q-meta"><span class="marks">5 M</span><span class="stars s3">★★★ Banker</span><span class="src">PYQ 2024 · Q1b</span><span class="src">Slides 5–10 + Kothari</span></div>
+      </div>
+    </div>
+    <div class="q-body">
+      <div class="pt"><b class="h">Variable:</b> <mark>any characteristic which is subject to change and can have more than one value</mark> (<i>e.g.</i> intelligence, motivation, age, gender).</div>
+      <div class="pt"><b class="h">Independent variable (IV):</b> the factor the researcher <mark>manipulates or controls</mark> to observe its effect: the <mark>"cause"</mark>. It comes in two types: <i>experimental IV</i>, directly manipulated (dosage of a drug), and <i>subject variable</i>, a characteristic that can't be manipulated but categorises participants (age, gender).</div>
+      <div class="pt"><b class="h">Dependent variable (DV):</b> the <mark>outcome measured in response to changes in the IV</mark>: the <mark>"effect"</mark> (test scores, growth, behavioural response).</div>
+      <div class="pt"><b class="h">Extraneous variable:</b> <mark>any variable other than the IV that could influence the DV</mark>. It adds noise (temperature, lighting, mood, fatigue, time of day).</div>
+      <div class="pt"><b class="h">Confounded variable:</b> when an extraneous variable <mark>correlates with both the IV and the DV</mark>, their separate effects <mark>cannot be separated</mark> (<i>e.g.</i> testing a new teaching method without controlling for students' prior knowledge).</div>
+      <div class="pt"><b class="h">Continuous variable:</b> can take <mark>any value in a range, including decimals</mark> (age, height, weight).</div>
+      <div class="pt"><b class="h">Discrete variable:</b> takes <mark>only whole-number (integer) values</mark> (number of children, number of defects).</div>
+      <figure>
+        <svg viewBox="0 0 520 120" width="100%" style="max-width:150mm" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+          <defs><marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#0A7A62"/></marker>
+                <marker id="arx" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#C0392B"/></marker></defs>
+          <rect x="10" y="40" width="150" height="46" rx="10" fill="#E3F4EE"/><text x="85" y="60" text-anchor="middle" font-size="13" font-weight="700" fill="#075442">Independent var.</text><text x="85" y="77" text-anchor="middle" font-size="11" fill="#45445A">cause · manipulated</text>
+          <rect x="360" y="40" width="150" height="46" rx="10" fill="#E3F4EE"/><text x="435" y="60" text-anchor="middle" font-size="13" font-weight="700" fill="#075442">Dependent var.</text><text x="435" y="77" text-anchor="middle" font-size="11" fill="#45445A">effect · measured</text>
+          <line x1="164" y1="63" x2="354" y2="63" stroke="#0A7A62" stroke-width="2.4" marker-end="url(#ar2)"/>
+          <text x="259" y="56" text-anchor="middle" font-size="11" fill="#075442">hypothesised effect</text>
+          <rect x="190" y="2" width="140" height="28" rx="8" fill="#FDECEC"/><text x="260" y="21" text-anchor="middle" font-size="11.5" font-weight="700" fill="#A72A2F">Extraneous var.</text>
+          <path d="M330 22 Q 400 22 430 36" fill="none" stroke="#C0392B" stroke-width="1.8" stroke-dasharray="4 3" marker-end="url(#arx)"/>
+          <rect x="190" y="92" width="140" height="26" rx="8" fill="#F5F4FA"/><text x="260" y="109" text-anchor="middle" font-size="11" fill="#45445A"><tspan font-weight="700">Control</tspan> = minimise this</text>
+        </svg>
+        <figcaption>Cause → effect. Control blocks the extraneous variable's influence. If it isn't controlled, the relationship is <b>confounded</b>.</figcaption>
+      </figure>
+      <div class="ex"><span class="lbl">L3 twist · identify the variables</span><b>"Effect of hours of study on CIE marks."</b> IV: hours of study (continuous). DV: CIE marks. Extraneous: sleep, prior knowledge, difficulty of the paper. Confounding risk: students who study more may also attend more classes.</div>
+    </div>
+  </div>
+
+  <!-- U2 Q2 -->
+  <div class="q">
+    <div class="q-head">
+      <div class="q-id">Q2<small>UNIT II</small></div>
+      <div>
+        <div class="q-title">What is research design? Explain its need and the features of a good research design.</div>
+        <div class="q-meta"><span class="marks">6 M</span><span class="stars s2">★★ Very likely</span><span class="src">Slides 2–5</span></div>
+      </div>
+    </div>
+    <div class="q-body">
+      <div class="pt"><b class="h">Meaning.</b> Once the research problem is defined, preparing the research project is called the <mark>"research design"</mark>. It covers <mark>decisions about what, where, when, how much and by what means</mark> for an inquiry: a <mark>plan or strategy for conducting the research</mark>. A good design <mark>minimises bias and maximises the reliability of the data</mark>, yields <mark>maximum information with minimum experimental error</mark>, and shows different aspects of a single problem. It depends on the purpose and nature of the problem, so <b>no single design suits every problem</b>.</div>
+      <div class="cols2">
+        <div>
+          <div class="sub-h">Need for research design</div>
+          <ul class="tight">
+            <li><mark>Smooth sailing</mark> of research operations</li>
+            <li><mark>Advance planning</mark> of the methods</li>
+            <li>Great bearing on the <mark>reliability of results</mark></li>
+            <li>Gives <mark>direction</mark></li>
+            <li>Helps in <mark>decision making</mark></li>
+            <li><mark>Prevents blind searching</mark></li>
+            <li>Helps <mark>anticipate problems</mark> in data collection</li>
+          </ul>
+        </div>
+        <div>
+          <div class="sub-h">Features of a good design</div>
+          <ul class="tight">
+            <li>The <mark>means of obtaining information</mark></li>
+            <li><mark>Availability and skills</mark> of the researcher and staff</li>
+            <li>Availability of <mark>time and money</mark></li>
+            <li><mark>Flexible</mark> enough for exploratory studies</li>
+            <li><mark>Accurate with minimum bias</mark> for descriptive studies</li>
+            <li><mark>Control of extraneous variables</mark></li>
+            <li><mark>Statistical correctness</mark> for testing the hypothesis</li>
+          </ul>
+        </div>
+      </div>
+      <div class="pt"><b class="h">Important concepts in research design:</b> dependent and independent variables, extraneous variable, control, confounded relationship, research hypothesis, experimental and control groups, treatments.</div>
+      <div class="tip"><span class="hand">Examiner's eye</span>Open with an analogy: <i>"Research design is to research what a blueprint is to a building."</i> Then two headings (Need, Features), 4–5 points each.</div>
+    </div>
+  </div>
+
+  <!-- U2 Q3 -->
+  <div class="q">
+    <div class="q-head">
+      <div class="q-id">Q3<small>UNIT II</small></div>
+      <div>
+        <div class="q-title">What is a research hypothesis? State its purpose, and explain null vs alternative and directional vs non-directional hypotheses with examples.</div>
+        <div class="q-meta"><span class="marks">6 M</span><span class="stars s3">★★★ Banker</span><span class="src">Slides 11–16</span></div>
+      </div>
+    </div>
+    <div class="q-body">
+      <p><b>Definition.</b> A research hypothesis is a <mark>predictive statement that relates an independent variable to a dependent variable</mark>. It is <mark>a proposition or set of propositions set forth as an explanation</mark> for some phenomena, either as a provisional conjecture to guide investigation, or accepted as highly probable in the light of established facts.</p>
+      <div class="sub-h">Purpose of a hypothesis</div>
+      <ul class="tight">
+        <li><mark>Guides and gives direction</mark> to the study</li>
+        <li>Defines which facts are <mark>relevant and not relevant</mark></li>
+        <li>Suggests the <mark>most appropriate research design</mark></li>
+        <li>Provides a <mark>framework for organising conclusions</mark></li>
+        <li><mark>Limits the research</mark> to a specific area</li>
+        <li>Offers explanations for relationships that can be <mark>empirically tested</mark></li>
+        <li>Shows the researcher has enough <mark>background knowledge</mark></li>
+        <li>Structures the <mark>next phase</mark>, giving continuity</li>
+      </ul>
+      <div class="sub-h">Types (running example: does a new drug affect blood pressure?)</div>
+      <table class="u2">
+        <tr><th style="width:18%">Type</th><th>Meaning</th><th style="width:24%">Example</th></tr>
+        <tr><td class="lab">Null (H<sub>0</sub>)</td><td><mark>No effect, no difference or no relationship</mark>. The default position tested against.</td><td>H<sub>0</sub>: μ<sub>1</sub> = μ<sub>2</sub></td></tr>
+        <tr><td class="lab">Alternative (H<sub>1</sub> or H<sub>a</sub>)</td><td>Contradicts H<sub>0</sub>: <mark>there is an effect</mark>. What the researcher aims to support.</td><td>H<sub>1</sub>: μ<sub>1</sub> ≠ μ<sub>2</sub></td></tr>
+        <tr><td class="lab">Directional</td><td>States the <mark>expected direction</mark> (greater than or less than)</td><td>H<sub>1</sub>: μ<sub>1</sub> &lt; μ<sub>2</sub> (drug group has lower BP)</td></tr>
+        <tr><td class="lab">Non-directional</td><td>States <mark>a difference, without direction</mark></td><td>H<sub>1</sub>: μ<sub>1</sub> ≠ μ<sub>2</sub></td></tr>
+      </table>
+      <p>Classified <b>by formulation</b> (null vs alternative) and <b>by direction</b> (directional vs non-directional). μ<sub>1</sub> is the mean BP with the drug; μ<sub>2</sub> is the mean BP without it.</p>
+      <div class="tip"><span class="hand">Examiner's eye</span>H<sub>0</sub> and H<sub>1</sub> sit in <b>Unit II</b> slides, so they are in CIE-1 even though "Data Analysis" isn't. Always write the symbols (μ<sub>1</sub> = μ<sub>2</sub>): one line of maths looks like full marks.</div>
+    </div>
+  </div>
+
+  <!-- U2 Q4 -->
+  <div class="q">
+    <div class="q-head">
+      <div class="q-id">Q4<small>UNIT II</small></div>
+      <div>
+        <div class="q-title">State the principles of experimental design. Explain the Completely Randomised Design (CRD) with an example.</div>
+        <div class="q-meta"><span class="marks">6 M</span><span class="stars s2">★★ Very likely</span><span class="src">Slides 25–32</span></div>
+      </div>
+    </div>
+    <div class="q-body">
+      <p><b>Experimental design</b> methods help the experimenter <mark>understand and evaluate the factors that influence a system using statistical approaches</mark>.</p>
+      <div class="sub-h">Principles of experimental design</div>
+      <ul class="tight">
+        <li><b>Control:</b> <mark>keep conditions as similar as possible for all treatment groups</mark>, apart from the treatments themselves. Then any difference is due to the treatment.</li>
+        <li><b>Randomisation:</b> <mark>use chance to assign units to treatments</mark>. This balances the effect of uncontrolled ("lurking") variables.</li>
+        <li><b>Replication:</b> <mark>repeat the experiment on many subjects or locations</mark>.</li>
+      </ul>
+      <figure>
+        <svg viewBox="0 0 560 165" width="100%" style="max-width:155mm" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+          <g fill="none" stroke="#0A7A62" stroke-width="1.4">
+            <path d="M280 32 V44 M70 44 H490 M70 44 V58 M210 44 V58 M350 44 V58 M490 44 V58"/>
+            <path d="M70 92 V102 M30 102 H110 M30 102 V112 M110 102 V112"/>
+            <path d="M490 92 V102 M450 102 H530 M450 102 V112 M530 102 V112"/>
+          </g>
+          <rect x="215" y="4" width="130" height="28" rx="7" fill="#0A7A62"/><text x="280" y="23" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fff">Formal designs</text>
+          <g font-size="11" font-weight="700" fill="#075442" text-anchor="middle">
+            <rect x="12" y="58" width="116" height="34" rx="7" fill="#E3F4EE"/><text x="70" y="79">CRD</text>
+            <rect x="152" y="58" width="116" height="34" rx="7" fill="#E3F4EE"/><text x="210" y="79">RBD</text>
+            <rect x="292" y="58" width="116" height="34" rx="7" fill="#E3F4EE"/><text x="350" y="79">Latin Square</text>
+            <rect x="432" y="58" width="116" height="34" rx="7" fill="#E3F4EE"/><text x="490" y="79">Factorial</text>
+          </g>
+          <g font-size="9.2" fill="#45445A" text-anchor="middle">
+            <rect x="0" y="112" width="62" height="34" rx="6" fill="#F5F4FA"/><text x="31" y="126">Two-group</text><text x="31" y="138">simple rand.</text>
+            <rect x="80" y="112" width="62" height="34" rx="6" fill="#F5F4FA"/><text x="111" y="126">Random</text><text x="111" y="138">replications</text>
+            <rect x="420" y="112" width="62" height="34" rx="6" fill="#F5F4FA"/><text x="451" y="126">Simple</text><text x="451" y="138">factorial</text>
+            <rect x="500" y="112" width="60" height="34" rx="6" fill="#F5F4FA"/><text x="530" y="126">Complex</text><text x="530" y="138">factorial</text>
+          </g>
+          <text x="210" y="160" text-anchor="middle" font-size="10" fill="#7B7A8E">single factor (one IV): CRD · RBD · LSD</text>
+          <text x="490" y="160" text-anchor="middle" font-size="10" fill="#7B7A8E">multiple factors</text>
+        </svg>
+      </figure>
+      <div class="sub-h">Completely Randomised Design (CRD)</div>
+      <p><mark>Treatments are assigned to experimental units completely at random</mark>, so <mark>each unit has an equal chance of receiving any treatment</mark> and the treatment effects can be assessed without bias. Statistical model: <b>Y<sub>ij</sub> = μ + T<sub>i</sub> + e<sub>ij</sub></b> (observation = overall mean + treatment effect + random error).</p>
+      <div class="ex"><span class="lbl">Slide example · baking powder</span><b>Hypothesis:</b> adding more baking powder increases cake height. <b>Treatments:</b> ¼, ½, ¾ and 1 tbsp. Cakes are assigned to the four levels <b>completely at random</b>, baked, and their heights compared.</div>
+      <div class="cols2">
+        <div class="pc plus"><h5>Characteristics and advantages</h5><ul class="tight"><li><mark>Random assignment</mark></li><li><mark>Single-factor</mark> focus</li><li><mark>Simplicity</mark> of layout and analysis</li><li><mark>Maximum degrees of freedom for error</mark></li><li><mark>Flexible</mark>: any number of treatments and replications</li></ul></div>
+        <div class="pc minus"><h5>Limitations</h5><ul class="tight"><li>Needs <mark>homogeneous units</mark></li><li><mark>Less accurate in field experiments</mark></li><li><mark>Can't detect interactions</mark> between factors</li></ul><p style="margin:0"><b>Used in:</b> laboratory experiments, controlled agricultural tests, clinical trials, basic biology and chemistry.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- U2 Q5 -->
+  <div class="q">
+    <div class="q-head">
+      <div class="q-id">Q5<small>UNIT II</small></div>
+      <div>
+        <div class="q-title">Briefly explain a randomised block design. Design an RBD to study the effect of three new fertilisers (F1, F2, F3) on rice, wheat and jowar, with yield as the outcome.</div>
+        <div class="q-meta"><span class="marks">6 M</span><span class="stars s3">★★★ Banker</span><span class="src">PYQ 2024 · Q3b</span><span class="src">Slides 33–37</span></div>
+      </div>
+    </div>
+    <div class="q-body">
+      <p><b>RBD</b> <mark>groups experimental units into blocks</mark> based on a characteristic expected to affect the outcome. <mark>Within each block, treatments are assigned randomly</mark>, which reduces the effect of variability between blocks. Model: <b>Y<sub>ij</sub> = μ + T<sub>j</sub> + B<sub>i</sub> + E<sub>ij</sub></b> (overall mean + treatment effect + block effect + error).</p>
+      <ul class="tight">
+        <li><b>Blocking:</b> units with similar characteristics (age, location, crop) form a block, which <mark>controls a known nuisance factor</mark>.</li>
+        <li><b>Random assignment within each block.</b></li>
+        <li><b>Complete treatment application:</b> <mark>every treatment appears in every block</mark>.</li>
+      </ul>
+      <div class="sub-h">The design for the question</div>
+      <table class="u2" style="width:auto;margin-bottom:2mm">
+        <tr><td class="lab">Treatments</td><td>F1, F2, F3 (the three new fertilisers)</td></tr>
+        <tr><td class="lab">Blocks</td><td>Crop type: Rice, Wheat, Jowar (the nuisance factor)</td></tr>
+        <tr><td class="lab">Experimental unit</td><td>One plot of land</td></tr>
+        <tr><td class="lab">Response (DV)</td><td>Yield (kg per plot)</td></tr>
+      </table>
+      <div class="cols2" style="align-items:center">
+        <div>
+          <table class="field">
+            <tr><th></th><th>Plot 1</th><th>Plot 2</th><th>Plot 3</th></tr>
+            <tr><td class="blk">Block I · Rice</td><td class="f2">F2</td><td class="f3">F3</td><td class="f1">F1</td></tr>
+            <tr><td class="blk">Block II · Wheat</td><td class="f1">F1</td><td class="f3">F3</td><td class="f2">F2</td></tr>
+            <tr><td class="blk">Block III · Jowar</td><td class="f3">F3</td><td class="f2">F2</td><td class="f1">F1</td></tr>
+          </table>
+        </div>
+        <div style="font-size:8.8pt">
+          <ol class="tight">
+            <li>Divide each crop block into <b>3 plots</b>.</li>
+            <li><b>Randomly</b> allot F1, F2 and F3 to the plots within each block (by lottery), giving 3 × 3 = <b>9 plots</b>.</li>
+            <li>Grow the crops and <b>measure the yield</b> of each plot.</li>
+            <li>Compare the mean yield of F1, F2 and F3. The <b>crop (block) effect is separated out</b> (two-way ANOVA).</li>
+          </ol>
+        </div>
+      </div>
+      <figure style="margin-top:1mm">
+        <svg viewBox="0 0 560 120" width="100%" style="max-width:150mm" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+          <defs><marker id="a5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#0A7A62"/></marker></defs>
+          <rect x="4" y="44" width="70" height="30" rx="7" fill="#0A7A62"/><text x="39" y="63" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">CROPS</text>
+          <g fill="#E3F4EE"><rect x="120" y="6" width="80" height="28" rx="7"/><rect x="120" y="45" width="80" height="28" rx="7"/><rect x="120" y="84" width="80" height="28" rx="7"/></g>
+          <g font-size="11" font-weight="700" fill="#075442" text-anchor="middle"><text x="160" y="24">Rice</text><text x="160" y="63">Wheat</text><text x="160" y="102">Jowar</text></g>
+          <g stroke="#0A7A62" stroke-width="1.4" fill="none" marker-end="url(#a5)"><path d="M74 59 L116 20"/><path d="M74 59 L116 59"/><path d="M74 59 L116 98"/></g>
+          <g font-family="JB Mono, monospace" font-size="10.5" font-weight="700" text-anchor="middle">
+            <rect x="230" y="6" width="150" height="28" rx="7" fill="#fff" stroke="#CFE9DF"/><text x="305" y="24" fill="#075442">F1 · F2 · F3 (random)</text>
+            <rect x="230" y="45" width="150" height="28" rx="7" fill="#fff" stroke="#CFE9DF"/><text x="305" y="63" fill="#075442">F1 · F2 · F3 (random)</text>
+            <rect x="230" y="84" width="150" height="28" rx="7" fill="#fff" stroke="#CFE9DF"/><text x="305" y="102" fill="#075442">F1 · F2 · F3 (random)</text>
+          </g>
+          <g stroke="#0A7A62" stroke-width="1.4" fill="none" marker-end="url(#a5)"><path d="M200 20 H226"/><path d="M200 59 H226"/><path d="M200 98 H226"/><path d="M380 20 L436 52"/><path d="M380 59 H436"/><path d="M380 98 L436 66"/></g>
+          <rect x="440" y="40" width="116" height="38" rx="8" fill="#0A7A62"/><text x="498" y="56" text-anchor="middle" font-size="10.5" font-weight="700" fill="#fff">Measure yield</text><text x="498" y="70" text-anchor="middle" font-size="10" fill="#E3F4EE">→ analyse results</text>
+        </svg>
+        <figcaption>Draw this flow (it matches slide 33) or the field grid above. Drawing both is safest.</figcaption>
+      </figure>
+      <div class="cols2">
+        <div class="pc plus"><h5>Advantages</h5><ul class="tight"><li><mark>Reduces variability</mark>, so results are more precise</li><li><mark>Increased statistical power</mark> (lower error variance)</li><li><mark>Flexible</mark>: agriculture, medicine, industry</li></ul></div>
+        <div class="pc minus"><h5>Limitations</h5><ul class="tight"><li>Choosing the blocking factor is <mark>complex</mark> and needs prior knowledge</li><li>Assumes <mark>within-block variation is less than between-block variation</mark></li><li>Controls <mark>only known nuisance factors</mark></li></ul></div>
+      </div>
+      <div class="tip"><span class="hand">Examiner's eye</span>Before drawing, write the four labels: <b>treatments, blocks, unit, response</b>. That's 2 marks before you've drawn anything. If they change the crops or fertilisers again, the method stays the same. You can add a control plot <b>NF</b> (no fertiliser) like the slide does, to show understanding.</div>
+    </div>
+  </div>
+
+  <!-- U2 Q6 -->
+  <div class="q">
+    <div class="q-head">
+      <div class="q-id">Q6<small>UNIT II</small></div>
+      <div>
+        <div class="q-title">Explain the Latin Square Design with an example and layout. State its merits and limitations.</div>
+        <div class="q-meta"><span class="marks">6 M</span><span class="stars s3">★★★ Top candidate</span><span class="src">Not asked in 2024</span><span class="src">Slides 38–45</span></div>
+      </div>
+    </div>
+    <div class="q-body">
+      <p><b>LSD</b> is used to <mark>control two blocking factors while studying one treatment factor</mark>. It is an <mark>n × n grid in which each treatment appears exactly once in each row and once in each column</mark>. Rows represent one blocking factor and columns the other. Rule: <mark>number of treatments = number of rows = number of columns</mark>. Model: <b>Y<sub>ijk</sub> = μ + T<sub>j</sub> + R<sub>i</sub> + C<sub>k</sub> + E<sub>ijk</sub></b> (treatment, row, column effects + error).</p>
+      <div class="ex"><span class="lbl">Slide example · cold protection of strawberries</span><b>Treatments:</b> 3 irrigation methods: <b>drip</b>, <b>overhead sprinkler</b>, <b>none</b>. <b>Aim:</b> find which best protects strawberries from extreme cold. <b>Extraneous variation:</b> <b>soil moisture</b> (changes with distance from the canal) and <b>soil nitrogen</b> (high to low). <b>Response:</b> weight of frozen fruit (lower = more protection).</div>
+      <div class="cols2" style="align-items:center">
+        <div>
+          <table class="field">
+            <tr><th></th><th>N high</th><th>N medium</th><th>N low</th></tr>
+            <tr><td class="blk">Moisture 1</td><td class="ta">none</td><td class="tb">drip</td><td class="tc">over</td></tr>
+            <tr><td class="blk">Moisture 2</td><td class="tb">drip</td><td class="tc">over</td><td class="ta">none</td></tr>
+            <tr><td class="blk">Moisture 3</td><td class="tc">over</td><td class="ta">none</td><td class="tb">drip</td></tr>
+          </table>
+          <div style="font-size:7.6pt;color:var(--muted);margin-top:1mm">Rows = moisture gradient · columns = nitrogen gradient · each method once per row and once per column</div>
+        </div>
+        <div>
+          <table class="field">
+            <tr><th colspan="4">Standard 4 × 4 (A–D = treatments)</th></tr>
+            <tr><td class="ta">A</td><td class="tb">B</td><td class="tc">C</td><td class="td">D</td></tr>
+            <tr><td class="tb">B</td><td class="tc">C</td><td class="td">D</td><td class="ta">A</td></tr>
+            <tr><td class="tc">C</td><td class="td">D</td><td class="ta">A</td><td class="tb">B</td></tr>
+            <tr><td class="td">D</td><td class="ta">A</td><td class="tb">B</td><td class="tc">C</td></tr>
+          </table>
+        </div>
+      </div>
+      <p style="margin-top:2mm">Slide 41 shows two layouts and asks "which design will best account for both moisture and nitrogen gradients?" The answer is the one where <b>no treatment repeats in any row or column</b>: the Latin square.</p>
+      <div class="cols2">
+        <div class="pc plus"><h5>Merits</h5><ul class="tight"><li><mark>Controls two sources of variability</mark> (rows and columns), so error is smaller</li><li><mark>Efficient use of resources</mark>: fewer units than separate experiments</li><li><mark>Flexible</mark>: agriculture, psychology, clinical studies</li><li>Equal replication gives <mark>balanced comparisons</mark></li></ul></div>
+        <div class="pc minus"><h5>Limitations</h5><ul class="tight"><li><mark>Limited number of treatments</mark>: must equal rows and columns</li><li><mark>More complex to design</mark> than CRD or RBD</li><li>Assumes <mark>minimal variation within rows and columns</mark>; otherwise the results are biased</li></ul></div>
+      </div>
+      <div class="tip"><span class="hand">Examiner's eye</span>The predicted twist: "Design an LSD for 4 fertilisers with soil fertility varying in two directions." Draw the standard 4 × 4, name the rows and columns, and tick the rule (each letter once per row and column). Practise drawing it in 60 seconds.</div>
+    </div>
+  </div>
+
+  <!-- U2 Q7 -->
+  <div class="q">
+    <div class="q-head">
+      <div class="q-id">Q7<small>UNIT II</small></div>
+      <div>
+        <div class="q-title">What is a factorial design? Explain simple and complex factorial designs. List all combinations of a 3×2×2 design (therapy type × duration × therapist gender).</div>
+        <div class="q-meta"><span class="marks">6 M</span><span class="stars s3">★★★ Banker</span><span class="src">PYQ 2024 · Q2b</span><span class="src">Slides 46–50</span></div>
+      </div>
+    </div>
+    <div class="q-body">
+      <p>A <b>factorial design</b> <mark>evaluates the effects of two or more independent variables (factors) on a dependent variable</mark>. It measures the <mark>main effects</mark> (each factor's individual impact) and the <mark>interaction effects</mark> (how one factor's effect changes with the level of another). <b>Number of combinations = product of the levels</b>.</p>
+      <div class="pt"><b class="h">Simple factorial:</b> <mark>two factors, each at two levels (2 × 2)</mark>. Example: drug dosage (low, high) × duration (short, long) gives <b>4 combinations</b>: low-short, low-long, high-short, high-long.</div>
+      <div class="pt"><b class="h">Complex factorial:</b> <mark>more than two factors, or factors with more than two levels</mark> (2 × 3, 3 × 2 × 2). Example: <b>3 × 2 × 2 = 12 combinations</b>:</div>
+      <table class="u2" style="text-align:center">
+        <tr><th style="text-align:left">Therapy ↓ · Duration / Gender →</th><th style="text-align:center">Short · Male</th><th style="text-align:center">Short · Female</th><th style="text-align:center">Long · Male</th><th style="text-align:center">Long · Female</th></tr>
+        <tr><td class="lab" style="text-align:left">Cognitive Behavioural (CBT)</td><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+        <tr><td class="lab" style="text-align:left">Psychodynamic</td><td>5</td><td>6</td><td>7</td><td>8</td></tr>
+        <tr><td class="lab" style="text-align:left">Humanistic</td><td>9</td><td>10</td><td>11</td><td>12</td></tr>
+      </table>
+      <p style="font-size:8.6pt">In the exam, also write them as a list: (1) CBT, short, male · (2) CBT, short, female · (3) CBT, long, male · (4) CBT, long, female · (5) Psychodynamic, short, male · (6) Psychodynamic, short, female · (7) Psychodynamic, long, male · (8) Psychodynamic, long, female · (9) Humanistic, short, male · (10) Humanistic, short, female · (11) Humanistic, long, male · (12) Humanistic, long, female.</p>
+      <div class="cols2">
+        <div class="pc plus"><h5>Advantages</h5><ul class="tight"><li>Studies the <mark>combined effect of several factors simultaneously</mark>: economical and efficient</li><li><mark>Wide range of combinations</mark> helps predict what happens when factors combine</li><li><mark>Saves time and material</mark> compared with separate experiments</li><li>Avoids the environmental-change problems of single-factor experiments</li><li>More complete information: <mark>evaluates interaction effects</mark></li></ul></div>
+        <div class="pc minus"><h5>Disadvantages</h5><ul class="tight"><li>Execution and analysis get <mark>complex</mark> as combinations grow</li><li>You may be <mark>forced to include uninteresting combinations</mark>, wasting time and material</li><li>More factors means <mark>bigger blocks and more heterogeneity</mark>, so more error and less precision</li></ul></div>
+      </div>
+      <div class="tip"><span class="hand">Examiner's eye</span>Use a <b>tree</b> (3 branches, then 2, then 2) or the grid above so you never miss a combination. Write "3 × 2 × 2 = 12" first: the examiner sees you know the count.</div>
+    </div>
+  </div>
+
+  <!-- U2 RAPID FIRE -->
+  <div class="rf-head"><h3>Rapid-fire · Unit II</h3><span>Compact answers for 3–5 mark parts</span></div>
+  <div class="rf-grid">
+    <div class="rf">
+      <h4>Treatments</h4>
+      <div class="q-meta"><span class="marks">4 M</span><span class="stars s2">★★</span><span class="src">Slides 17–20</span></div>
+      <ul class="tight">
+        <li><b>Treatment</b> is <mark>what is administered to participants or units</mark>: a drug, therapy, programme or other intervention expected to have an effect.</li>
+        <li><b>Experimental treatments</b> are the new interventions being tested. <b>Control treatments</b> are a standard treatment, a <mark>placebo or no treatment</mark>.</li>
+        <li><b>Purpose:</b> to find the treatment's effect on the DV by comparing with the control.</li>
+        <li><b>Design:</b> plan the dosage, duration and delivery. <mark>Random assignment</mark> reduces bias. Measure <mark>pretest and posttest</mark>.</li>
+        <li><i>Example:</i> hypertension trial: the treatment group gets the new drug, the control group a placebo; compare BP before and after.</li>
+      </ul>
+    </div>
+    <div class="rf">
+      <h4>Experimental group vs control group</h4>
+      <div class="q-meta"><span class="marks">4 M</span><span class="stars s2">★★</span><span class="src">Slides 21–24</span></div>
+      <table>
+        <tr><th>Basis</th><th>Experimental</th><th>Control</th></tr>
+        <tr><td class="lab">Treatment</td><td><mark>Receives</mark> the treatment</td><td><mark>No treatment</mark>, a placebo or the standard one</td></tr>
+        <tr><td class="lab">Role</td><td>Shows the IV's effect</td><td><mark>Baseline</mark> for comparison</td></tr>
+        <tr><td class="lab">Example</td><td>Gets the actual drug</td><td>Gets a placebo pill</td></tr>
+      </table>
+      <p style="margin:0">The groups should be <mark>identical except for the treatment</mark>. <b>Why both:</b> they <mark>establish causality</mark>, <mark>reduce bias and variability</mark>, and <mark>benchmark results</mark>.</p>
+    </div>
+    <div class="rf wide">
+      <h4>Compare CRD, RBD and LSD</h4>
+      <div class="q-meta"><span class="marks">4–5 M</span><span class="stars s2">★★</span><span class="src">Slides 28–45</span></div>
+      <table>
+        <tr><th>Basis</th><th>CRD</th><th>RBD</th><th>LSD</th></tr>
+        <tr><td class="lab">Blocking factors controlled</td><td><mark>0</mark></td><td><mark>1</mark> (blocks)</td><td><mark>2</mark> (rows and columns)</td></tr>
+        <tr><td class="lab">Allocation</td><td>Completely at random</td><td>Random within each block</td><td>Once per row and once per column</td></tr>
+        <tr><td class="lab">Model</td><td>Y = μ + T + e</td><td>Y = μ + T + B + E</td><td>Y = μ + T + R + C + E</td></tr>
+        <tr><td class="lab">Best when</td><td>Units are homogeneous (lab)</td><td>One known nuisance factor</td><td>Two known nuisance gradients (field)</td></tr>
+        <tr><td class="lab">Main limit</td><td>Poor for field experiments</td><td>Only known factors controlled</td><td>Treatments = rows = columns</td></tr>
+      </table>
+    </div>
+    <div class="rf">
+      <h4>Cause and effect, and why variables matter</h4>
+      <div class="q-meta"><span class="marks">3 M</span><span class="stars s1">★</span><span class="src">Slides 7, 10</span></div>
+      <ul class="tight">
+        <li>The <b>cause</b> is <i>why</i> something happens (the IV); the <b>effect</b> is <i>what</i> happens (the DV).</li>
+        <li>Variables matter for <mark>hypothesis development</mark> (clear variables give testable hypotheses), <mark>experimental design</mark> (knowing how to manipulate and measure) and <mark>data analysis</mark> (variable type decides the statistics).</li>
+      </ul>
+    </div>
+    <div class="rf">
+      <h4>Why randomise? Why replicate?</h4>
+      <div class="q-meta"><span class="marks">3 M</span><span class="stars s1">★</span><span class="src">Slide 26</span></div>
+      <ul class="tight">
+        <li><b>Randomisation</b> creates roughly <mark>equivalent groups</mark> by balancing lurking variables, which removes the researcher's selection bias.</li>
+        <li><b>Replication</b> lets you <mark>estimate experimental error</mark> and makes results reliable, not one-off.</li>
+        <li><b>Control</b> makes sure an observed difference is <mark>due to the treatment</mark>.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     UNIT III
+========================================================= -->
+<section class="u3">
+  <div class="unit-hero">
+    <div class="num">Unit III · CO3 · slides 1–54 only</div>
+    <h2>Data Collection, Sampling &amp; Scaling</h2>
+    <div class="topics">Primary and secondary data · Observation, interview, questionnaire, schedule · Sampling fundamentals · Sample design · Measurement scales · Rating scale</div>
+    <div class="facts">
+      <div><b>54</b><span>slides in scope (of 81)</span></div>
+      <div><b>New</b><span>not in the 2024 CIE-1</span></div>
+      <div><b>~3 parts</b><span>expected this year</span></div>
+    </div>
+  </div>
+
+  <!-- U3 Q1 -->
+  <div class="q">
+    <div class="q-head">
+      <div class="q-id">Q1<small>UNIT III</small></div>
+      <div>
+        <div class="q-title">Differentiate between primary and secondary data. What characteristics must secondary data possess before a researcher uses it?</div>
+        <div class="q-meta"><span class="marks">6 M</span><span class="stars s3">★★★ Banker</span><span class="src">Slides 3–5, 17–18</span></div>
+      </div>
+    </div>
+    <div class="q-body">
+      <p>Data collection begins <mark>after the research problem has been defined and the research design chalked out</mark>. There are two types of data.</p>
+      <table class="u3">
+        <tr><th style="width:20%">Basis</th><th>Primary data</th><th>Secondary data</th></tr>
+        <tr><td class="lab">Meaning</td><td><mark>Collected afresh and for the first time</mark>; original in character</td><td><mark>Already collected by someone else</mark> and passed through the statistical process</td></tr>
+        <tr><td class="lab">Collected by</td><td>The researcher, for this study</td><td>Other agencies, for some other purpose</td></tr>
+        <tr><td class="lab">Methods and sources</td><td><mark>Observation, interview, questionnaire, schedule</mark>; experiments; surveys</td><td><mark>Published</mark> (government reports, journals, books) and <mark>unpublished</mark> (diaries, letters) sources</td></tr>
+        <tr><td class="lab">Cost and time</td><td>High</td><td>Low</td></tr>
+        <tr><td class="lab">Suitability</td><td>Fits the purpose exactly</td><td>Must be <mark>checked before use</mark></td></tr>
+        <tr><td class="lab">Example</td><td>Your own survey of 200 students</td><td>Census of India figures</td></tr>
+      </table>
+      <div class="sub-h">Characteristics secondary data must possess: R · S · A</div>
+      <div class="pt"><b class="h">1. Reliability.</b> Check: <mark>who collected the data? What were the sources? Were proper methods used? When was it collected? Was there bias of the compiler? What accuracy was desired, and was it achieved?</mark></div>
+      <div class="pt"><b class="h">2. Suitability.</b> <mark>Data suitable for one enquiry may not be suitable for another.</mark> Unsuitable data should not be used.</div>
+      <div class="pt"><b class="h">3. Adequacy.</b> If the <mark>level of accuracy is inadequate</mark> for the present enquiry, the data should not be used.</div>
+      <p><b>Published sources:</b> central, state and local government publications; foreign governments and international bodies; technical and trade journals; books, magazines and newspapers; reports of business associations, banks and stock exchanges; reports by research scholars and universities; public records and historical documents. <b>Unpublished sources:</b> diaries, letters, unpublished biographies and autobiographies, and records held by scholars, trade associations and labour bureaus.</p>
+    </div>
+  </div>
+
+  <!-- U3 Q2 -->
+  <div class="q">
+    <div class="q-head">
+      <div class="q-id">Q2<small>UNIT III</small></div>
+      <div>
+        <div class="q-title">Explain the observation and interview methods of collecting primary data, with their advantages and limitations.</div>
+        <div class="q-meta"><span class="marks">6 M</span><span class="stars s3">★★★ Banker</span><span class="src">Slides 5–11</span></div>
+      </div>
+    </div>
+    <div class="q-body">
+      <p>The four methods of collecting primary data are <mark>observation, interview, questionnaire and schedule</mark>.</p>
+      <div class="sub-h">(i) Observation method</div>
+      <p>Information is obtained by the <mark>investigator's own direct observation, without asking the respondent</mark>. It becomes a scientific tool when it <mark>serves a formulated research purpose</mark>, is <mark>systematically planned and recorded</mark>, and is <mark>subjected to checks and controls on validity and reliability</mark>. Kinds: structured or unstructured, participant or non-participant, controlled or uncontrolled.</p>
+      <div class="cols2">
+        <div class="pc plus"><h5>Advantages</h5><ul class="tight"><li><mark>Subjective bias is eliminated</mark></li><li>Information relates to <mark>what is currently happening</mark></li><li><mark>Independent of respondents' willingness</mark> to respond</li><li>Works with respondents <mark>unable to give verbal reports</mark></li></ul></div>
+        <div class="pc minus"><h5>Limitations</h5><ul class="tight"><li><mark>Expensive</mark></li><li><mark>Limited information</mark></li><li><mark>Unforeseen factors</mark> may interfere</li></ul></div>
+      </div>
+      <div class="sub-h">(ii) Interview method</div>
+      <p><mark>Presentation of oral-verbal stimuli and reply in terms of oral-verbal responses</mark>. Done through <b>personal interviews</b> (face to face) or <b>telephone interviews</b>.</p>
+      <ul class="tight">
+        <li><b>Structured:</b> <mark>a set of predetermined questions with highly standardised recording</mark>; the interviewer follows a rigid procedure, in a prescribed form and order.</li>
+        <li><b>Unstructured:</b> <mark>flexible approach</mark>; can ask supplementary questions, omit questions or change their order. Less comparable between interviews, and harder to analyse.</li>
+      </ul>
+      <div class="cols2">
+        <div class="pc plus"><h5>Advantages</h5><ul class="tight"><li><mark>More information, in greater depth</mark></li><li>The interviewer can <mark>overcome resistance</mark></li><li><mark>Greater flexibility</mark></li><li><mark>Personal information</mark> obtained easily</li><li><mark>Samples controlled</mark> more effectively</li><li>Language <mark>adapted to the respondent's level</mark></li><li>Can capture <mark>spontaneous reactions</mark></li></ul></div>
+        <div class="pc minus"><h5>Limitations</h5><ul class="tight"><li><mark>Very expensive</mark> for wide samples</li><li><mark>Bias of interviewer and respondent</mark></li><li>Important officials <mark>hard to approach</mark></li><li><mark>Time-consuming</mark></li><li>The interviewer's presence may <mark>over-stimulate</mark> the respondent</li><li>Selecting and training staff is complex</li><li>Needs proper <mark>rapport</mark></li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- U3 Q3 -->
+  <div class="q">
+    <div class="q-head">
+      <div class="q-id">Q3<small>UNIT III</small></div>
+      <div>
+        <div class="q-title">What are questionnaires and schedules? Distinguish between them, and state the merits and limitations of questionnaires.</div>
+        <div class="q-meta"><span class="marks">6 M</span><span class="stars s3">★★★ Banker</span><span class="src">Slides 12–16</span></div>
+      </div>
+    </div>
+    <div class="q-body">
+      <div class="pt"><b class="h">Questionnaire:</b> <mark>a number of questions printed or typed in a definite order on a form</mark>, <mark>mailed to respondents</mark>, who read, understand and <mark>answer on their own</mark>. Popular for big enquiries by individuals, organisations and governments.</div>
+      <div class="pt"><b class="h">Schedule:</b> a proforma containing a set of questions, <mark>filled in by enumerators</mark> specially appointed for the purpose. They ask the questions in order, record the replies, and <mark>explain the aims and remove difficulties</mark>. Enumerators must be carefully selected and trained, intelligent, able to cross-examine, honest and patient. <mark>Population censuses are conducted this way.</mark></div>
+      <table class="u3">
+        <tr><th style="width:18%">Basis</th><th>Questionnaire</th><th>Schedule</th></tr>
+        <tr><td class="lab">Filled by</td><td><mark>The respondent</mark>, sent by mail</td><td><mark>The enumerator</mark>, who asks the respondent</td></tr>
+        <tr><td class="lab">Cost</td><td><mark>Cheap</mark></td><td><mark>Expensive</mark> (enumerators' pay and training)</td></tr>
+        <tr><td class="lab">Non-response</td><td><mark>High</mark>: low return rate</td><td><mark>Low</mark>: the enumerator gets answers</td></tr>
+        <tr><td class="lab">Respondent</td><td>Must be <mark>literate and cooperative</mark></td><td>Can be used <mark>even with illiterate respondents</mark></td></tr>
+        <tr><td class="lab">Personal contact</td><td>None</td><td>Direct, face to face</td></tr>
+        <tr><td class="lab">Speed</td><td>Slow (waiting for returns)</td><td>Collected in time</td></tr>
+        <tr><td class="lab">Accuracy</td><td>Risk of ambiguous or omitted replies</td><td>More complete; depends on enumerators' honesty</td></tr>
+        <tr><td class="lab">Coverage</td><td>Very wide; large samples possible</td><td>Limited by the number of enumerators</td></tr>
+      </table>
+      <div class="cols2">
+        <div class="pc plus"><h5>Merits of a questionnaire</h5><ul class="tight"><li><mark>Low cost</mark></li><li><mark>Free from interviewer bias</mark>; answers in the respondents' own words</li><li><mark>Adequate time</mark> for well-thought-out answers</li><li>Reaches respondents who are <mark>not easily approachable</mark></li><li><mark>Large samples</mark>, so more dependable results</li></ul></div>
+        <div class="pc minus"><h5>Limitations</h5><ul class="tight"><li><mark>Low rate of return</mark></li><li>Respondents must be <mark>educated and cooperating</mark></li><li><mark>Control is lost</mark> once it's sent; hard to amend</li><li><mark>Ambiguous or omitted replies</mark></li><li>Hard to know if respondents are <mark>representative</mark></li><li><mark>Slow</mark></li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- U3 Q4 -->
+  <div class="q">
+    <div class="q-head">
+      <div class="q-id">Q4<small>UNIT III</small></div>
+      <div>
+        <div class="q-title">What is sampling? Why is it needed? Define universe, sampling frame, sample design, statistic and parameter, sampling error, precision, confidence level and significance level.</div>
+        <div class="q-meta"><span class="marks">6 M</span><span class="stars s3">★★★ Banker</span><span class="src">Slides 20–26</span></div>
+      </div>
+    </div>
+    <div class="q-body">
+      <p>A complete enumeration of all items in the population is a <mark>census inquiry</mark>. <b>Sampling</b> is <mark>the selection of some part of an aggregate or totality on the basis of which a judgement or inference about the aggregate is made</mark>: obtaining information about the whole population by examining only part of it.</p>
+      <div class="sub-h">Need for sampling</div>
+      <ol class="tight">
+        <li>Saves <mark>time and money</mark>.</li>
+        <li>Can give <mark>more accurate measurements</mark> when done by trained investigators.</li>
+        <li>The <mark>only way when the population is infinite</mark>.</li>
+        <li>The <mark>only choice for destructive testing</mark> (for example, the life of light bulbs).</li>
+        <li>Lets you <mark>estimate the sampling errors</mark>.</li>
+      </ol>
+      <div class="sub-h">Important definitions</div>
+      <table class="u3">
+        <tr><td class="lab">Universe or population</td><td>The universe is the total of items in any field of inquiry; the population is the total of items about which information is desired.</td></tr>
+        <tr><td class="lab">Sampling frame</td><td>A <mark>list of all sampling units</mark> from which the sample is drawn (for example, a telephone directory for a city opinion survey). It should represent the population well.</td></tr>
+        <tr><td class="lab">Sample design</td><td>A <mark>definite plan for obtaining a sample from the sampling frame</mark>.</td></tr>
+        <tr><td class="lab">Statistic vs parameter</td><td>A <mark>statistic describes a sample</mark> (sample mean); a <mark>parameter describes the population</mark> (population mean).</td></tr>
+        <tr><td class="lab">Sampling error</td><td>The <mark>inaccuracy</mark> that comes from studying only part of the population (also called error variance).</td></tr>
+        <tr><td class="lab">Precision</td><td>The <mark>range within which the population value will lie</mark>. For an estimate of ₹4000 with ±4% precision, the true value is <b>₹3840 to ₹4160</b>.</td></tr>
+        <tr><td class="lab">Confidence and significance level</td><td>Confidence: the expected % of times the actual value falls within the precision limits. <mark>At 95% confidence, the significance level is 100 − 95 = 5%</mark>.</td></tr>
+        <tr><td class="lab">Sampling distribution</td><td>The means (or other statistics) of many samples, with their frequencies. Its <mark>mean equals the population mean</mark>.</td></tr>
+      </table>
+      <figure>
+        <svg viewBox="0 0 560 96" width="100%" style="max-width:150mm" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+          <defs><marker id="a3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#CF4A16"/></marker></defs>
+          <ellipse cx="62" cy="48" rx="58" ry="40" fill="#FDEDE4"/><text x="62" y="45" text-anchor="middle" font-size="12" font-weight="700" fill="#8F310C">Population</text><text x="62" y="61" text-anchor="middle" font-size="10" fill="#45445A">parameter (μ)</text>
+          <g font-size="10.5" font-weight="600" fill="#8F310C" text-anchor="middle">
+            <rect x="170" y="2" width="84" height="24" rx="6" fill="#fff" stroke="#F5C8B2"/><text x="212" y="18">Sample 1</text>
+            <rect x="170" y="36" width="84" height="24" rx="6" fill="#fff" stroke="#F5C8B2"/><text x="212" y="52">Sample 2</text>
+            <rect x="170" y="70" width="84" height="24" rx="6" fill="#fff" stroke="#F5C8B2"/><text x="212" y="86">Sample n</text>
+            <rect x="290" y="2" width="70" height="24" rx="6" fill="#FDEDE4"/><text x="325" y="18">Mean 1</text>
+            <rect x="290" y="36" width="70" height="24" rx="6" fill="#FDEDE4"/><text x="325" y="52">Mean 2</text>
+            <rect x="290" y="70" width="70" height="24" rx="6" fill="#FDEDE4"/><text x="325" y="86">Mean n</text>
+          </g>
+          <g stroke="#CF4A16" stroke-width="1.3" fill="none" marker-end="url(#a3)"><path d="M120 40 L166 16"/><path d="M120 48 H166"/><path d="M120 56 L166 82"/><path d="M254 14 H286"/><path d="M254 48 H286"/><path d="M254 82 H286"/><path d="M360 14 L398 40"/><path d="M360 48 H398"/><path d="M360 82 L398 56"/></g>
+          <path d="M404 82 C 440 82, 450 14, 480 14 C 510 14, 520 82, 556 82" fill="#FDEDE4" stroke="#CF4A16" stroke-width="1.6"/>
+          <text x="480" y="56" text-anchor="middle" font-size="9.5" font-weight="700" fill="#8F310C">sampling</text><text x="480" y="68" text-anchor="middle" font-size="9.5" font-weight="700" fill="#8F310C">distribution</text>
+        </svg>
+      </figure>
+    </div>
+  </div>
+
+  <!-- U3 Q5 -->
+  <div class="q">
+    <div class="q-head">
+      <div class="q-id">Q5<small>UNIT III</small></div>
+      <div>
+        <div class="q-title">Explain the steps in sample design and the criteria for selecting a sampling procedure.</div>
+        <div class="q-meta"><span class="marks">6 M</span><span class="stars s2">★★ Very likely</span><span class="src">Slides 27–29</span></div>
+      </div>
+    </div>
+    <div class="q-body">
+      <div class="sub-h">Steps in sample design</div>
+      <table class="u3">
+        <tr><td class="lab">1 · Type of universe</td><td>Finite or infinite</td></tr>
+        <tr><td class="lab">2 · Sampling unit</td><td>Geographical (state, village), construction (house, flat), social (family, school) or an individual</td></tr>
+        <tr><td class="lab">3 · Source list</td><td>The <mark>sampling frame</mark> the sample is drawn from</td></tr>
+        <tr><td class="lab">4 · Size of sample</td><td>The number of items selected from the universe</td></tr>
+        <tr><td class="lab">5 · Parameters of interest</td><td>The population values wanted (for example, the average height of people)</td></tr>
+        <tr><td class="lab">6 · Budgetary constraint</td><td>The money available limits the size and type of sample</td></tr>
+        <tr><td class="lab">7 · Sampling procedure</td><td>The technique used to select the items</td></tr>
+      </table>
+      <div class="sub-h">Criteria for selecting a sampling procedure</div>
+      <p>Sampling involves two costs: <mark>the cost of collecting data and the cost of an incorrect inference</mark>. Wrong inferences come from two causes: <mark>systematic bias</mark> and <mark>sampling error</mark>.</p>
+      <div class="pt"><b class="h">Causes of systematic bias:</b></div>
+      <ol class="tight">
+        <li><mark>Inappropriate sampling frame</mark>: a biased representation of the universe</li>
+        <li><mark>Defective measuring device</mark>: constantly in error</li>
+        <li><mark>Non-respondents</mark>: not all selected individuals can be sampled</li>
+        <li><mark>Indeterminacy principle</mark>: people behave differently when observed</li>
+        <li><mark>Natural bias in reporting data</mark> by respondents</li>
+      </ol>
+      <div class="pt"><b class="h">Sampling error</b> is the <mark>random variation of sample estimates around the true population parameter</mark>. Measuring it gives the <mark>precision of the sampling plan</mark>. Increasing the sample size improves precision, but it also <mark>raises cost and enhances systematic bias</mark>. The effective fix is a <mark>better sampling design</mark> with smaller error for the same size and cost.</div>
+      <table class="u3">
+        <tr><th>Systematic bias</th><th>Sampling error</th></tr>
+        <tr><td>Caused by errors in the <b>sampling procedure</b></td><td>Caused by <b>random chance</b></td></tr>
+        <tr><td><mark>Not reduced by a bigger sample</mark></td><td><mark>Reduced by a bigger sample or a better design</mark></td></tr>
+      </table>
+      <div class="tip"><span class="hand">Systematic bias mnemonic</span><span class="mn">I Do Not Invite Nonsense</span>: <b>I</b>nappropriate frame · <b>D</b>efective device · <b>N</b>on-respondents · <b>I</b>ndeterminacy · <b>N</b>atural bias</div>
+    </div>
+  </div>
+
+  <!-- U3 Q6 -->
+  <div class="q">
+    <div class="q-head">
+      <div class="q-id">Q6<small>UNIT III</small></div>
+      <div>
+        <div class="q-title">State the characteristics of a good sample design. Explain the types of sample design, distinguishing probability from non-probability sampling.</div>
+        <div class="q-meta"><span class="marks">6 M</span><span class="stars s3">★★★ Banker</span><span class="src">Slides 38–43</span></div>
+      </div>
+    </div>
+    <div class="q-body">
+      <div class="sub-h">Characteristics of a good sample design</div>
+      <ol class="tight">
+        <li>Results in a <mark>truly representative sample</mark></li>
+        <li>Results in a <mark>small sampling error</mark></li>
+        <li>Is <mark>viable within the funds available</mark></li>
+        <li>Lets <mark>systematic bias be controlled</mark> better</li>
+        <li>Results can be <mark>applied to the universe with a reasonable level of confidence</mark></li>
+      </ol>
+      <div class="sub-h">Types of sample design</div>
+      <p>Sample designs are classified on two bases: the <mark>representation basis</mark> (probability or non-probability) and the <mark>element selection technique</mark> (unrestricted, where each element is drawn individually from the population at large, or restricted, meaning all other forms).</p>
+      <table class="u3" style="text-align:left">
+        <tr><th>Element selection ↓ · Representation →</th><th>Probability sampling</th><th>Non-probability sampling</th></tr>
+        <tr><td class="lab">Unrestricted</td><td><mark>Simple random sampling</mark></td><td><mark>Haphazard or convenience sampling</mark></td></tr>
+        <tr><td class="lab">Restricted</td><td><mark>Complex random sampling</mark>: cluster, systematic, stratified, etc.</td><td><mark>Purposive sampling</mark>: quota, judgement</td></tr>
+      </table>
+      <div class="pt"><b class="h">Non-probability sampling</b> (also called deliberate, purposive or judgement sampling): <mark>there is no basis for estimating the probability of each item being included</mark>. Items are <mark>selected deliberately by the researcher</mark>, whose choice is supreme. <i>Example:</i> a few towns and villages chosen to represent a whole state. Risk: the <mark>personal element (organiser's bias)</mark> enters, and <mark>sampling error cannot be estimated</mark>. It suits small inquiries because it saves time and money. <b>Quota sampling</b> is an example: interviewers fill quotas from different strata at their own discretion. It is cheap and convenient, but not random.</div>
+      <div class="pt"><b class="h">Probability sampling</b> (also called random or chance sampling): <mark>every item of the universe has an equal chance of inclusion</mark>, like a <mark>lottery</mark>, so blind chance alone decides. <mark>Errors of estimation can be measured</mark>, and it obeys the <mark>law of statistical regularity</mark>: a random sample has the same composition as the universe. That makes it the best technique for a representative sample. <i>Without replacement</i>, a selected item can't appear again; <i>with replacement</i>, it is returned and could appear twice.</div>
+      <table class="u3">
+        <tr><th style="width:22%">Basis</th><th>Probability</th><th>Non-probability</th></tr>
+        <tr><td class="lab">Selection</td><td>By chance (lottery)</td><td>Deliberate, by judgement</td></tr>
+        <tr><td class="lab">Chance of inclusion</td><td>Equal and known</td><td>Unknown</td></tr>
+        <tr><td class="lab">Sampling error</td><td><mark>Can be measured</mark></td><td><mark>Cannot be estimated</mark></td></tr>
+        <tr><td class="lab">Bias</td><td>Free from personal bias</td><td>Organiser's bias likely</td></tr>
+        <tr><td class="lab">Cost</td><td>Higher</td><td>Lower; convenient</td></tr>
+      </table>
+      <p style="font-size:8.6pt"><b>Extra one-liners (Kothari):</b> <i>simple random</i> means every item has an equal chance · <i>systematic</i> means every k-th item from a list · <i>stratified</i> means dividing into homogeneous strata and sampling each · <i>cluster or area</i> means sampling whole groups · <i>multi-stage</i> means sampling in stages (state, district, village).</p>
+    </div>
+  </div>
+
+  <!-- U3 Q7 -->
+  <div class="q">
+    <div class="q-head">
+      <div class="q-id">Q7<small>UNIT III</small></div>
+      <div>
+        <div class="q-title">What is measurement? Explain the four levels of measurement with examples, and the sources of error in measurement.</div>
+        <div class="q-meta"><span class="marks">6 M</span><span class="stars s3">★★★ Banker</span><span class="src">Slides 44–52</span></div>
+      </div>
+    </div>
+    <div class="q-body">
+      <p><b>Measurement</b> is <mark>the process of assigning numbers to objects or observations</mark>: <mark>mapping aspects of a domain onto aspects of a range according to some rule</mark>. We measure physical objects as well as abstract concepts.</p>
+      <table class="u3">
+        <tr><th style="width:13%">Scale</th><th>What it does</th><th style="width:28%">Examples</th><th style="width:18%">Allowed statistics</th></tr>
+        <tr><td class="lab">Nominal</td><td><mark>Labels variables into distinct categories</mark>, with no quantitative value or order (also called the categorical scale)</td><td>Gender (M/F), political preference, place of residence, blood group</td><td>Counts, mode</td></tr>
+        <tr><td class="lab">Ordinal</td><td>Shows the <mark>order of variables</mark>, not the difference between them</td><td><mark>Likert scale</mark>: very unsatisfied (1) to very satisfied (5); ranks</td><td>Median, percentiles</td></tr>
+        <tr><td class="lab">Interval</td><td><mark>Order plus equal, known differences</mark>, but <mark>no true zero</mark></td><td>Temperature: 80° − 50° = 70° − 40°</td><td>Mean, SD</td></tr>
+        <tr><td class="lab">Ratio</td><td>Order, known differences <mark>plus a true (absolute) zero</mark></td><td>Height, weight, income, age</td><td>All, including ratios</td></tr>
+      </table>
+      <figure>
+        <svg viewBox="0 0 560 120" width="100%" style="max-width:150mm" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+          <g font-size="11.5" font-weight="700" text-anchor="middle">
+            <rect x="0" y="84" width="130" height="32" rx="7" fill="#FDEDE4"/><text x="65" y="104" fill="#8F310C">Nominal</text>
+            <rect x="140" y="58" width="130" height="58" rx="7" fill="#F9D5C2"/><text x="205" y="78" fill="#8F310C">Ordinal</text>
+            <rect x="280" y="32" width="130" height="84" rx="7" fill="#F2B394"/><text x="345" y="52" fill="#8F310C">Interval</text>
+            <rect x="420" y="6" width="140" height="110" rx="7" fill="#CF4A16"/><text x="490" y="26" fill="#fff">Ratio</text>
+          </g>
+          <g font-size="9.6" text-anchor="middle" fill="#45445A">
+            <text x="205" y="100">named + ordered</text>
+            <text x="345" y="80">named + ordered</text><text x="345" y="94">+ equal intervals</text>
+            <text x="490" y="56" fill="#FDEDE4">named + ordered</text><text x="490" y="70" fill="#FDEDE4">+ equal intervals</text><text x="490" y="84" fill="#FDEDE4">+ absolute zero</text>
+          </g>
+        </svg>
+        <figcaption>Each level keeps everything below it and adds one property (slide 51). Mnemonic: <b>NOIR</b>.</figcaption>
+      </figure>
+      <div class="sub-h">Sources of error in measurement</div>
+      <ol class="tight">
+        <li><b>Respondent:</b> <mark>reluctant to express strong negative feelings</mark>, or knows little but won't admit ignorance.</li>
+        <li><b>Situation:</b> <mark>any condition that strains the interview</mark>, such as someone else being present.</li>
+        <li><b>Measurer:</b> the interviewer <mark>distorts responses by rewording or reordering questions</mark>.</li>
+        <li><b>Instrument:</b> a <mark>defective measuring instrument</mark>.</li>
+      </ol>
+      <div class="tip"><span class="hand">Examiner's eye</span>The examiner loves "which scale is this?" Practise with the drills on page 24. The giveaway: <b>can you say "twice as much"?</b> If yes, it's ratio. If 0 doesn't mean "none" (0 °C), it's interval.</div>
+    </div>
+  </div>
+
+  <!-- U3 RAPID FIRE -->
+  <div class="rf-head"><h3>Rapid-fire · Unit III</h3><span>Compact answers for 3–5 mark parts</span></div>
+  <div class="rf-grid">
+    <div class="rf">
+      <h4>Important sampling distributions</h4>
+      <div class="q-meta"><span class="marks">5 M</span><span class="stars s2">★★</span><span class="src">Slides 30–35</span></div>
+      <ol class="tight">
+        <li><b>Of the mean:</b> the distribution of means of all possible random samples of a given size. It is normal if the population is normal, and near-normal for large samples.</li>
+        <li><b>Of the proportion:</b> for <mark>attribute data</mark> (defective or non-defective). It is binomial, becoming normal as n grows.</li>
+        <li><b>Student's t:</b> used when the <mark>population SD is unknown and n &lt; 30</mark>. Symmetrical; approaches normal as n grows.</li>
+        <li><b>F:</b> compares the <mark>variances of two samples</mark> from two normal populations with the same variance.</li>
+        <li><b>Chi-square:</b> <mark>not symmetrical, all values positive</mark>. Used for observed vs expected frequencies and goodness of fit.</li>
+      </ol>
+    </div>
+    <div class="rf">
+      <h4>Central Limit Theorem and Standard Error</h4>
+      <div class="q-meta"><span class="marks">4 M</span><span class="stars s2">★★</span><span class="src">Slides 36–37</span></div>
+      <p><b>CLT:</b> <mark>whether or not the population is normal, the means of samples drawn from it follow a normal distribution when n &gt; 30</mark>. If the population is normal, sample means are normal for any n.</p>
+      <p style="margin-bottom:.6mm"><b>Standard error (SE):</b> <mark>the standard deviation of the sampling distribution of a statistic</mark>. For the mean, SE = σ / √n. It:</p>
+      <ul class="tight"><li>tests whether a difference could be due to chance</li><li>gives an idea of the <mark>reliability and precision</mark> of a sample</li><li>sets the <mark>limits within which the population parameter is expected to lie</mark></li></ul>
+    </div>
+    <div class="rf">
+      <h4>Meaning of scaling and the rating scale</h4>
+      <div class="q-meta"><span class="marks">4 M</span><span class="stars s2">★★</span><span class="src">Slides 53–54 (last CIE-1 slide)</span></div>
+      <p><b>Scaling</b> means <mark>assigning numbers to various degrees of opinion, attitude and other concepts</mark>. It is done in two ways: (i) judging some characteristic of an individual, or (ii) constructing questionnaires.</p>
+      <p><b>Rating scale:</b> a <mark>qualitative description of a limited number of aspects of a thing or traits of a person</mark>. The object is judged <mark>in absolute terms against specified criteria</mark>. Its results compare favourably with other methods, it <mark>takes less time</mark>, is interesting to use, has a <mark>wide range of applications</mark>, and works with many variables.</p>
+      <p style="margin:0"><i>Example (graphic rating):</i> "How do you like the product?" Like very much · Like somewhat · Neutral · Dislike somewhat · Dislike very much.</p>
+    </div>
+    <div class="rf">
+      <h4>Structured vs unstructured interview</h4>
+      <div class="q-meta"><span class="marks">3 M</span><span class="stars s1">★</span><span class="src">Slides 8–9</span></div>
+      <table>
+        <tr><th>Basis</th><th>Structured</th><th>Unstructured</th></tr>
+        <tr><td class="lab">Questions</td><td>Predetermined, fixed order</td><td>Flexible; can add, omit or reorder</td></tr>
+        <tr><td class="lab">Recording</td><td>Highly standardised</td><td>Not standardised</td></tr>
+        <tr><td class="lab">Comparability</td><td>High; easy analysis</td><td>Low; analysis hard and slow</td></tr>
+        <tr><td class="lab">Interviewer freedom</td><td>Rigid procedure</td><td>Much greater freedom</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     SCENARIO DRILLS
+========================================================= -->
+<section class="page-break">
+  <div class="sec-kicker">Page 24 · L3 practice</div>
+  <h1 class="sec-title">Scenario drills: the "apply" marks</h1>
+  <p class="lede">Last year 19 of the 45 marks on the paper were L3. Cover the answer, think for 30 seconds, then check.</p>
+  <table>
+    <tr><th style="width:5%">#</th><th style="width:47%">Scenario</th><th>Answer</th></tr>
+    <tr><td class="lab">1</td><td>A study tests whether background music affects students' typing speed. Identify the IV, DV and extraneous variables.</td><td><b>IV:</b> music (on or off, or type of music) · <b>DV:</b> typing speed (wpm) · <b>Extraneous:</b> typing experience, keyboard type, fatigue, time of day</td></tr>
+    <tr><td class="lab">2</td><td>List all combinations: teaching mode (online, offline) × class size (small, medium, large).</td><td><b>2 × 3 = 6:</b> online-small, online-medium, online-large, offline-small, offline-medium, offline-large (a complex factorial)</td></tr>
+    <tr><td class="lab">3</td><td>Design a layout for 4 fertilisers A–D on a field whose fertility varies east to west and north to south.</td><td><b>Latin square 4 × 4.</b> Rows control the north–south gradient, columns control the east–west gradient; each letter once per row and once per column (see Unit II · Q6)</td></tr>
+    <tr><td class="lab">4</td><td>Compare 3 diets on rats of 3 different age groups. Which design?</td><td><b>RBD.</b> Age group = block; diets assigned randomly within each age block</td></tr>
+    <tr><td class="lab">5</td><td>Study how temperature AND catalyst together affect reaction yield, including their interaction. Which design?</td><td><b>Factorial design.</b> Only it measures <b>interaction effects</b></td></tr>
+    <tr><td class="lab">6</td><td>Compare 4 training methods on very similar employees in a controlled lab. Which design?</td><td><b>CRD.</b> Units are homogeneous, so assign completely at random</td></tr>
+    <tr><td class="lab">7</td><td>Write H<sub>0</sub> and a directional H<sub>1</sub>: "Students who use flashcards score higher than those who don't."</td><td><b>H<sub>0</sub>: μ<sub>1</sub> = μ<sub>2</sub></b> · <b>H<sub>1</sub>: μ<sub>1</sub> &gt; μ<sub>2</sub></b> (directional, where μ<sub>1</sub> is the flashcard group)</td></tr>
+    <tr><td class="lab">8</td><td>Which scale? Blood group · class rank · temperature in °C · monthly salary · satisfaction on a 1–5 scale.</td><td><b>Nominal</b> · <b>Ordinal</b> · <b>Interval</b> · <b>Ratio</b> · <b>Ordinal</b> (Likert)</td></tr>
+    <tr><td class="lab">9</td><td>Testing the life of light bulbs: census or sample? And picking every 10th bolt off a production line is which method?</td><td><b>Sample:</b> destructive testing leaves no choice · <b>Systematic sampling</b> (probability, restricted)</td></tr>
+    <tr><td class="lab">10</td><td>You use Census of India data for your project. What type of data is this, and what must you check?</td><td><b>Secondary data.</b> Check <b>reliability, suitability and adequacy</b> (who collected it, method, time, bias, accuracy)</td></tr>
+  </table>
+
+  <h3 class="block" style="margin-top:6mm">Self-test: write these in 25 minutes (a full 15-mark question)</h3>
+  <div class="grid3">
+    <div class="card u1"><h4 style="color:var(--u1-deep)">Mock A</h4>(a) Explain the types of research. <b>6M</b><br>(b) Explain LSD with a layout. <b>5M</b><br>(c) Differentiate questionnaire and schedule. <b>4M</b></div>
+    <div class="card u2"><h4 style="color:var(--u2-deep)">Mock B</h4>(a) Explain the functions of citation. <b>6M</b><br>(b) Define the types of variables with an example. <b>5M</b><br>(c) Explain the four measurement scales. <b>4M</b></div>
+    <div class="card u3"><h4 style="color:var(--u3-deep)">Mock C</h4>(a) Explain the need for sampling and its key terms. <b>6M</b><br>(b) Design an RBD for a given case. <b>5M</b><br>(c) Compare critical and creative reading. <b>4M</b></div>
+  </div>
+</section>
+
+<!-- =========================================================
+     NIGHT BEFORE
+========================================================= -->
+<section class="page-break night">
+  <div class="sec-kicker">Page 25 · Read this the night before</div>
+  <h1 class="sec-title">The one-page cheat sheet</h1>
+  <div class="grid3">
+    <div class="card u1"><h4 style="color:var(--u1-deep)">Types of research</h4><span class="mn">D·A A·F Q·Q C·E</span><br>Descriptive vs Analytical · Applied vs Fundamental · Quantitative vs Qualitative · Conceptual vs Empirical, plus one-time vs longitudinal, field, lab or simulation, clinical, conclusion vs decision-oriented</div>
+    <div class="card u1"><h4 style="color:var(--u1-deep)">Ethics: 7 principles</h4><span class="mn">Honest Officers In Court Openly Respect Confidentiality</span><br>Honesty · Objectivity · Integrity · Carefulness · Openness · Respect for IP · Confidentiality</div>
+    <div class="card u1"><h4 style="color:var(--u1-deep)">Misconduct</h4><span class="mn">FFP</span> Fabrication · Falsification · Plagiarism. Not honest error.<br>Plagiarism: direct, self, mosaic, paraphrasing, accidental, misattribution</div>
+    <div class="card u1"><h4 style="color:var(--u1-deep)">Citation functions</h4><span class="mn">V·A·D</span> Verification · Acknowledgment · Documentation<br>Failed citations: <span class="mn">Some Bad Scholars Cheat</span> Spurious · Biased · Self · Coercive</div>
+    <div class="card u1"><h4 style="color:var(--u1-deep)">Literature review</h4>Existing knowledge gives: context · significance · originality · tools.<br>Prior art, 5 steps: hypothesis → models and conditions → connections → compare and contrast → strong points and loopholes</div>
+    <div class="card u1"><h4 style="color:var(--u1-deep)">Title</h4>3 aspects: <b>type · length · specific markers</b>, plus keywords. Title = marketing + traceability. Critical reading finds mistakes (easy); creative reading finds ideas (hard).</div>
+    <div class="card u2"><h4 style="color:var(--u2-deep)">Variables</h4>IV = cause (experimental or subject) · DV = effect · Extraneous = other influence · Confounded = can't be separated · Continuous = decimals · Discrete = integers · Control = minimise extraneous</div>
+    <div class="card u2"><h4 style="color:var(--u2-deep)">Hypothesis</h4>H<sub>0</sub>: μ<sub>1</sub> = μ<sub>2</sub> (no effect) · H<sub>1</sub>: μ<sub>1</sub> ≠ μ<sub>2</sub> · Directional: μ<sub>1</sub> &lt; μ<sub>2</sub> · Non-directional: ≠<br>By formulation vs by direction</div>
+    <div class="card u2"><h4 style="color:var(--u2-deep)">Design principles</h4><span class="mn">C·R·R</span> Control · Randomisation · Replication<br>Blocking ladder: <b>CRD 0 → RBD 1 → LSD 2</b> blocking factors · Factorial = 2+ factors</div>
+    <div class="card u2"><h4 style="color:var(--u2-deep)">Models</h4>CRD: Y = μ + T + e<br>RBD: Y = μ + T + B + E<br>LSD: Y = μ + T + R + C + E<br>Factorial: combinations = product of the levels (3 × 2 × 2 = 12)</div>
+    <div class="card u2"><h4 style="color:var(--u2-deep)">Slide examples</h4>CRD: baking powder (¼ to 1 tbsp) · RBD: fertilisers × crops · LSD: strawberries (drip, overhead, none; moisture × nitrogen) · Factorial: dosage × duration (2 × 2); therapy × duration × gender (3 × 2 × 2)</div>
+    <div class="card u2"><h4 style="color:var(--u2-deep)">Research design</h4>Need: smooth sailing · advance planning · reliability · direction · decisions · no blind search · anticipate problems<br>Good design: minimum bias, maximum reliability, flexible, controls extraneous variables</div>
+    <div class="card u3"><h4 style="color:var(--u3-deep)">Data collection</h4>Primary: <span class="mn">O·I·Q·S</span> Observation · Interview · Questionnaire · Schedule<br>Secondary check: <span class="mn">R·S·A</span> Reliability · Suitability · Adequacy</div>
+    <div class="card u3"><h4 style="color:var(--u3-deep)">Need for sampling</h4>Time and money · accuracy · infinite population · destructive testing · estimate sampling error<br>Precision: ₹4000 ± 4% = ₹3840 to ₹4160 · 95% confidence = 5% significance</div>
+    <div class="card u3"><h4 style="color:var(--u3-deep)">Systematic bias</h4><span class="mn">I Do Not Invite Nonsense</span><br>Inappropriate frame · Defective device · Non-respondents · Indeterminacy · Natural bias<br>A bigger sample fixes sampling error, not bias</div>
+    <div class="card u3"><h4 style="color:var(--u3-deep)">Good sample design</h4>Representative · small sampling error · within funds · bias controlled · generalisable with confidence<br>Steps: universe → unit → frame → size → parameters → budget → procedure</div>
+    <div class="card u3"><h4 style="color:var(--u3-deep)">Sample types (2 × 2)</h4>Probability + unrestricted = simple random · probability + restricted = complex random (cluster, systematic, stratified)<br>Non-probability + unrestricted = convenience · non-probability + restricted = purposive (quota, judgement)</div>
+    <div class="card u3"><h4 style="color:var(--u3-deep)">Scales and errors</h4><span class="mn">NOIR</span> Nominal (labels) · Ordinal (order) · Interval (equal gaps, no zero) · Ratio (true zero)<br>Measurement errors: <span class="mn">R·S·M·I</span> Respondent · Situation · Measurer · Instrument</div>
+  </div>
+  <div class="card dark" style="margin-top:4mm">
+    <h4>Final reminders</h4>
+    <p style="margin:0">Read all three questions first and pick the two with your strongest 6-markers. <mark>Differences go in a table. Designs get a diagram. Definitions use slide wording.</mark> Underline keywords. Never leave a part blank. All the best.</p>
+  </div>
+</section>
+
+<script>
+// Keep each question heading with the start of its answer, and each sub-heading with what follows it.
+document.querySelectorAll('.q').forEach(q => {
+  const head = q.querySelector(':scope > .q-head');
+  const body = q.querySelector(':scope > .q-body');
+  if (!head || !body || !body.firstElementChild) return;
+  const keep = document.createElement('div');
+  keep.className = 'keep';
+  q.insertBefore(keep, head);
+  keep.appendChild(head);
+  const lead = document.createElement('div');
+  lead.className = 'q-body';
+  lead.appendChild(body.firstElementChild);
+  keep.appendChild(lead);
+});
+document.querySelectorAll('.sub-h, h3.block').forEach(h => {
+  const next = h.nextElementSibling;
+  if (!next) return;
+  const keep = document.createElement('div');
+  keep.className = 'keep';
+  h.parentNode.insertBefore(keep, h);
+  keep.appendChild(h);
+  keep.appendChild(next);
+});
+</script>
+</body>
+</html>
