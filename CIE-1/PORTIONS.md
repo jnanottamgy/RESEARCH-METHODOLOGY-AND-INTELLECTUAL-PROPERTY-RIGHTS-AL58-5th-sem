@@ -141,5 +141,5 @@ These are the usual question shapes, not a prediction of the paper.
 ---
 
 ## Study material
-- **[`RMIPR-CIE1-Must-Learn.pdf`](RMIPR-CIE1-Must-Learn.pdf)**: 21 must-learn questions (7 per unit) with exam-ready 4/5/6-mark answers, 13 rapid-fire short answers, 10 L3 scenario drills, an analysis of the Nov 2024 CIE-1 paper, a study plan and a one-page cheat sheet.
+- **[`RMIPR-CIE1-Must-Learn.pdf`](RMIPR-CIE1-Must-Learn.pdf)**: 21 must-learn questions (7 per unit) with exam-ready 4/5/6-mark answers, 13 rapid-fire short answers, 64 memory lines (the first letter of each word is the answer), 10 L3 scenario drills, an analysis of the Nov 2024 CIE-1 paper, a study plan and a one-page cheat sheet.
 - Source: [`must-learn/guide.html`](must-learn/guide.html). Rebuild with `node must-learn/build.js` (needs Playwright).
